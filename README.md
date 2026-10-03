@@ -32,9 +32,9 @@ eas build -p android --profile preview
 Add the variables from `.env.example` to the EAS `preview` environment first (`eas env:create`), because `.env` is not uploaded to EAS.
 
 ## Team
-- Dev1: `<name>` (lead, auth, navigation, build)
-- Dev2: `<name>` (frontend)
-- Dev3: `<name>` (backend, delivery)
+- Dev1: `Asadullah` (lead, auth, navigation, build)
+- Dev2: `Rikza` (frontend)
+- Dev3: `Isha` (backend, delivery)
 
 ## Screenshots
 `<add screenshots: map, planner, wallet and QR, student verification, glare mode>`
