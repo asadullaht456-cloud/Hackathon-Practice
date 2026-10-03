@@ -1,56 +1,43 @@
-# Welcome to your Expo app 👋
+# Chalo
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+*Working name. Replace before submission.*
 
-## Get started
+**One app to see every Speedo, Metrobus and Orange Line vehicle live, plan the cheapest or fastest trip, and board with a single QR. Verified students ride free.**
 
-1. Install dependencies
+## Features
+- **Live map and trip planner:** vehicles from all three networks move in real time; plan by fastest or cheapest.
+- **Wallet and rotating QR:** top-up (mock JazzCash/RAAST) and a pay-as-you-go QR that refreshes every 30 seconds, with a validator screen.
+- **Student zero-fare pass:** ID capture and OCR, liveness prompt, then a device-bound zero-fare QR.
+- **Auto Glare Mode:** high-contrast theme switched by the ambient light sensor.
 
-   ```bash
-   npm install
-   ```
+**What is simulated:** the fleet GPS feed, the payment gateway, and the liveness check. NFC card binding is not built yet.
 
-2. Start the app
+## Tech stack
+Expo (React Native) + TypeScript + Expo Router + React Native Paper + Reanimated, Supabase (Auth, Postgres, Realtime, RLS, SQL functions), Gemini vision for ID reading, EAS Build.
 
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+## Setup
 ```
+git clone <repo-url>
+cd <repo-folder>
+npm install
+cp .env.example .env     # then fill in your own values
+npx expo start
+```
+Create the database by running `supabase/schema.sql` in the Supabase SQL editor. Set `EXPO_PUBLIC_USE_MOCK=true` in `.env` to run the app without a backend. Never commit `.env`; see `docs/SECURITY.md`.
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Build the APK
+```
+eas build -p android --profile preview
+```
+Add the variables from `.env.example` to the EAS `preview` environment first (`eas env:create`), because `.env` is not uploaded to EAS.
 
-### Other setup steps
+## Team
+- Dev1: `<name>` (lead, auth, navigation, build)
+- Dev2: `<name>` (frontend)
+- Dev3: `<name>` (backend, delivery)
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+## Screenshots
+`<add screenshots: map, planner, wallet and QR, student verification, glare mode>`
 
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Docs
+`docs/PROBLEM.md`, `docs/MVP.md`, `docs/ARCHITECTURE.md`, `docs/OWNERSHIP.md`, `docs/TASKS.md`, `docs/SECURITY.md`, `docs/GIT_RULES.md`, `docs/DEMO.md`
