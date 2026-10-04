@@ -7,79 +7,52 @@ import { AppCard } from '@/components/AppCard';
 import { QrPass } from '@/components/QrPass';
 import { TopUpModal } from '@/components/TopUpModal';
 import { StateView } from '@/components/StateView';
+import {
+  getWallet,
+  topUp,
+  getTransactions,
+  getQrToken,
+  getProfile,
+  Transaction,
+} from '@/services';
 
-interface Transaction {
-  id: string;
-  type: 'topup' | 'fare';
-  amount_pkr: number;
-  method?: string;
-  route_id?: string;
-  created_at: string;
-}
+const DEVICE_ID = 'device_simulator_demo_01';
 
 export default function WalletScreen() {
   const insets = useSafeAreaInsets();
   const { colors, spacing, borderRadius, isGlare } = useAppTheme();
 
-  const [balance, setBalance] = useState<number>(250);
+  const [balance, setBalance] = useState<number>(0);
   const [role, setRole] = useState<'citizen' | 'student'>('citizen');
-  const [qrToken, setQrToken] = useState<string>('q1-chalo-paygo-9824');
-  const [qrExpiresAt, setQrExpiresAt] = useState<string>(
-    new Date(Date.now() + 30000).toISOString()
-  );
-  const [transactions, setTransactions] = useState<Transaction[]>([
-    {
-      id: 't1',
-      type: 'topup',
-      amount_pkr: 200,
-      method: 'jazzcash',
-      created_at: new Date(Date.now() - 3600000).toISOString(),
-    },
-    {
-      id: 't2',
-      type: 'fare',
-      amount_pkr: 30,
-      route_id: 'MB',
-      created_at: new Date(Date.now() - 7200000).toISOString(),
-    },
-    {
-      id: 't3',
-      type: 'fare',
-      amount_pkr: 20,
-      route_id: 'SP1',
-      created_at: new Date(Date.now() - 86400000).toISOString(),
-    },
-  ]);
+  const [qrToken, setQrToken] = useState<string | null>(null);
+  const [qrExpiresAt, setQrExpiresAt] = useState<string | undefined>(undefined);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [topUpModalVisible, setTopUpModalVisible] = useState<boolean>(false);
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [loadingTopUp, setLoadingTopUp] = useState<boolean>(false);
+  const [loadingInitial, setLoadingInitial] = useState<boolean>(true);
 
-  // Load wallet & QR from services or mock
+  // Load wallet & QR directly from @/services
   const fetchWalletData = async () => {
     try {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const services = require('@/services');
-      if (services?.getWallet) {
-        const w = await services.getWallet();
-        if (w?.balancePkr !== undefined) setBalance(w.balancePkr);
+      const [walletData, profileData, qrData, txsData] = await Promise.all([
+        getWallet(),
+        getProfile(),
+        getQrToken(DEVICE_ID),
+        getTransactions(20),
+      ]);
+
+      if (walletData?.balancePkr !== undefined) setBalance(walletData.balancePkr);
+      if (profileData?.role) setRole(profileData.role);
+      if (qrData?.tokenId) {
+        setQrToken(qrData.tokenId);
+        setQrExpiresAt(qrData.expiresAt);
       }
-      if (services?.getProfile) {
-        const p = await services.getProfile();
-        if (p?.role) setRole(p.role);
-      }
-      if (services?.getQrToken) {
-        const q = await services.getQrToken('device-local-1');
-        if (q?.tokenId) {
-          setQrToken(q.tokenId);
-          setQrExpiresAt(q.expiresAt);
-        }
-      }
-      if (services?.getTransactions) {
-        const txs = await services.getTransactions(10);
-        if (txs?.length) setTransactions(txs);
-      }
-    } catch {
-      // Keep initial mock state
+      if (txsData) setTransactions(txsData);
+    } catch (err) {
+      console.error('Error fetching wallet data:', err);
+    } finally {
+      setLoadingInitial(false);
     }
   };
 
@@ -89,49 +62,27 @@ export default function WalletScreen() {
 
   const handleRefreshQr = async () => {
     try {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const services = require('@/services');
-      if (services?.getQrToken) {
-        const q = await services.getQrToken('device-local-1');
-        if (q) {
-          setQrToken(q.tokenId);
-          setQrExpiresAt(q.expiresAt);
-          return;
-        }
+      const q = await getQrToken(DEVICE_ID);
+      if (q?.tokenId) {
+        setQrToken(q.tokenId);
+        setQrExpiresAt(q.expiresAt);
       }
-    } catch {
-      // Fallback local refresh
+    } catch (err) {
+      console.error('Error refreshing QR token:', err);
     }
-    const newId = `qr-${Math.random().toString(36).substring(2, 9)}`;
-    setQrToken(newId);
-    setQrExpiresAt(new Date(Date.now() + 30000).toISOString());
   };
 
   const handleTopUp = async (amount: number, method: 'jazzcash' | 'raast') => {
     setLoadingTopUp(true);
     try {
-      try {
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const services = require('@/services');
-        if (services?.topUp) {
-          const res = await services.topUp(amount, method);
-          if (res?.balancePkr !== undefined) {
-            setBalance(res.balancePkr);
-          }
-        }
-      } catch {
-        setBalance((prev) => prev + amount);
+      const result = await topUp(amount, method);
+      if (result?.balancePkr !== undefined) {
+        setBalance(result.balancePkr);
       }
-
-      // Add to recent txs
-      const newTx: Transaction = {
-        id: `tx-${Date.now()}`,
-        type: 'topup',
-        amount_pkr: amount,
-        method,
-        created_at: new Date().toISOString(),
-      };
-      setTransactions((prev) => [newTx, ...prev]);
+      const updatedTxs = await getTransactions(20);
+      setTransactions(updatedTxs);
+    } catch (err) {
+      console.error('Error topping up:', err);
     } finally {
       setLoadingTopUp(false);
     }
@@ -139,8 +90,7 @@ export default function WalletScreen() {
 
   const onPullRefresh = async () => {
     setRefreshing(true);
-    await fetchWalletData();
-    handleRefreshQr();
+    await Promise.all([fetchWalletData(), handleRefreshQr()]);
     setRefreshing(false);
   };
 
@@ -152,6 +102,10 @@ export default function WalletScreen() {
       return '';
     }
   };
+
+  if (loadingInitial) {
+    return <StateView state="loading" loadingMessage="Loading wallet & pass..." />;
+  }
 
   return (
     <ScrollView

@@ -6,63 +6,22 @@ import { useAppTheme } from '@/hooks/ui/useAppTheme';
 import { StateView } from '@/components/StateView';
 import { AppCard } from '@/components/AppCard';
 import { VehicleMarker } from '@/components/VehicleMarker';
-
-export interface VehicleData {
-  id: string;
-  route_id: string;
-  dir: number;
-  seq: number;
-  progress: number;
-  lat: number;
-  lng: number;
-  heading: number;
-  updated_at: string;
-}
-
-export interface StopData {
-  id: string;
-  name: string;
-  network: 'metrobus' | 'orange' | 'speedo';
-  lat: number;
-  lng: number;
-}
-
-// Fallback seed stops per ARCHITECTURE.md §3 & §6
-const DEFAULT_STOPS: StopData[] = [
-  { id: 'gajju_matta', name: 'Gajju Matta', network: 'metrobus', lat: 31.404, lng: 74.235 },
-  { id: 'kalma_chowk', name: 'Kalma Chowk', network: 'metrobus', lat: 31.504, lng: 74.33 },
-  { id: 'chauburji_mb', name: 'Chauburji (Metrobus)', network: 'metrobus', lat: 31.556, lng: 74.305 },
-  { id: 'shahdara', name: 'Shahdara', network: 'metrobus', lat: 31.619, lng: 74.295 },
-  { id: 'ali_town', name: 'Ali Town', network: 'orange', lat: 31.443, lng: 74.249 },
-  { id: 'wahdat_road', name: 'Wahdat Road', network: 'orange', lat: 31.51, lng: 74.29 },
-  { id: 'chauburji_ol', name: 'Chauburji (Orange)', network: 'orange', lat: 31.5565, lng: 74.3035 },
-  { id: 'sp_kalma', name: 'Kalma Chowk (Speedo)', network: 'speedo', lat: 31.5042, lng: 74.3302 },
-  { id: 'sp_liberty', name: 'Liberty Market', network: 'speedo', lat: 31.511, lng: 74.344 },
-  { id: 'sp_gulberg', name: 'Gulberg Main', network: 'speedo', lat: 31.52, lng: 74.35 },
-];
-
-const INITIAL_VEHICLES: VehicleData[] = [
-  { id: 'MB-1', route_id: 'MB', dir: 1, seq: 2, progress: 0.4, lat: 31.51, lng: 74.33, heading: 35, updated_at: new Date().toISOString() },
-  { id: 'MB-2', route_id: 'MB', dir: -1, seq: 3, progress: 0.7, lat: 31.57, lng: 74.3, heading: 215, updated_at: new Date().toISOString() },
-  { id: 'OL-1', route_id: 'OL', dir: 1, seq: 1, progress: 0.6, lat: 31.47, lng: 74.27, heading: 45, updated_at: new Date().toISOString() },
-  { id: 'OL-2', route_id: 'OL', dir: -1, seq: 2, progress: 0.2, lat: 31.53, lng: 74.295, heading: 225, updated_at: new Date().toISOString() },
-  { id: 'SP1-1', route_id: 'SP1', dir: 1, seq: 1, progress: 0.8, lat: 31.507, lng: 74.337, heading: 70, updated_at: new Date().toISOString() },
-  { id: 'SP1-2', route_id: 'SP1', dir: -1, seq: 2, progress: 0.3, lat: 31.515, lng: 74.347, heading: 250, updated_at: new Date().toISOString() },
-];
+import { getStops, getVehicles, subscribeVehicles, Stop, Vehicle } from '@/services';
 
 export default function LiveMapScreen() {
   const insets = useSafeAreaInsets();
   const { colors, spacing, borderRadius, isGlare } = useAppTheme();
 
   const [loading, setLoading] = useState<boolean>(true);
-  const [vehicles, setVehicles] = useState<VehicleData[]>(INITIAL_VEHICLES);
-  const [stops] = useState<StopData[]>(DEFAULT_STOPS);
+  const [error, setError] = useState<string | null>(null);
+  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
+  const [stops, setStops] = useState<Stop[]>([]);
   const [selectedFilter, setSelectedFilter] = useState<'all' | 'metrobus' | 'orange' | 'speedo'>('all');
-  const [selectedVehicle, setSelectedVehicle] = useState<VehicleData | null>(null);
+  const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
   const [hasMapLibrary, setHasMapLibrary] = useState<boolean>(false);
   const [pulse, setPulse] = useState<boolean>(false);
 
-  // Dynamic import react-native-maps to avoid breaking if not yet installed
+  // Dynamic import react-native-maps to avoid breaking if native library isn't compiled
   const MapComponents = useRef<any>(null);
 
   useEffect(() => {
@@ -82,73 +41,39 @@ export default function LiveMapScreen() {
     }
   }, []);
 
-  // Subscribe to vehicle updates via @/services or high-fidelity local simulator
-  useEffect(() => {
-    let unsubscribe: (() => void) | null = null;
-    let localTimer: any = null;
-
-    async function loadData() {
-      try {
-        setLoading(true);
-        // Attempt to load from @/services if ready
-        try {
-          // eslint-disable-next-line @typescript-eslint/no-var-requires
-          const services = require('@/services');
-          if (services?.getVehicles) {
-            const vList = await services.getVehicles();
-            if (vList?.length) setVehicles(vList);
-          }
-          if (services?.subscribeVehicles) {
-            unsubscribe = services.subscribeVehicles((updatedV: VehicleData) => {
-              setVehicles((prev) =>
-                prev.map((v) => (v.id === updatedV.id ? updatedV : v))
-              );
-              setPulse((p) => !p);
-            });
-          }
-        } catch {
-          // If @/services not yet created, use built-in 1-second mock simulator per ARCHITECTURE.md §3
-          localTimer = setInterval(() => {
-            setVehicles((prevVehicles) =>
-              prevVehicles.map((v) => {
-                let nextProgress = v.progress + 0.05;
-                let nextDir = v.dir;
-                let nextHeading = v.heading;
-
-                if (nextProgress >= 1) {
-                  nextProgress = 0;
-                  nextDir = nextDir === 1 ? -1 : 1;
-                  nextHeading = (nextHeading + 180) % 360;
-                }
-
-                // Approximate coordinate offset along line
-                const deltaLat = (nextDir * 0.001) * (nextProgress + 0.1);
-                const deltaLng = (nextDir * 0.0008) * (nextProgress + 0.1);
-
-                return {
-                  ...v,
-                  progress: nextProgress,
-                  dir: nextDir,
-                  heading: nextHeading,
-                  lat: v.lat + (nextDir === 1 ? 0.0005 : -0.0005),
-                  lng: v.lng + (nextDir === 1 ? 0.0004 : -0.0004),
-                  updated_at: new Date().toISOString(),
-                };
-              })
-            );
-            setPulse((p) => !p);
-          }, 1000);
-        }
-      } finally {
-        setLoading(false);
-      }
+  const loadTransitData = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const [fetchedStops, fetchedVehicles] = await Promise.all([
+        getStops(),
+        getVehicles(),
+      ]);
+      setStops(fetchedStops);
+      setVehicles(fetchedVehicles);
+    } catch (err: any) {
+      setError(err?.message || 'Failed to load transit fleet');
+    } finally {
+      setLoading(false);
     }
+  };
 
-    loadData();
+  // Subscribe to real-time 1s vehicle telemetry from services
+  useEffect(() => {
+    loadTransitData();
+
+    const unsubscribe = subscribeVehicles((updatedV: Vehicle) => {
+      setVehicles((prev) =>
+        prev.map((v) => (v.id === updatedV.id ? updatedV : v))
+      );
+      setPulse((p) => !p);
+
+      // Keep selected vehicle stats in sync
+      setSelectedVehicle((curr) => (curr?.id === updatedV.id ? updatedV : curr));
+    });
 
     return () => {
-      if (unsubscribe) unsubscribe();
-      if (localTimer) clearInterval(localTimer);
+      unsubscribe();
     };
   }, []);
 
@@ -163,6 +88,17 @@ export default function LiveMapScreen() {
 
   if (loading) {
     return <StateView state="loading" loadingMessage="Connecting to Lahore transit radar..." />;
+  }
+
+  if (error) {
+    return (
+      <StateView
+        state="error"
+        errorTitle="Radar Offline"
+        errorMessage={error}
+        onRetry={loadTransitData}
+      />
+    );
   }
 
   const MapView = MapComponents.current?.MapView;
@@ -197,7 +133,7 @@ export default function LiveMapScreen() {
           ))}
         </MapView>
       ) : (
-        /* Visual Interactive Radar Grid when native Google Maps library is pending */
+        /* Visual Interactive Radar Grid when native Google Maps library is pending build */
         <View style={[styles.visualRadar, { backgroundColor: isGlare ? '#ffffff' : '#0f172a' }]}>
           <View style={styles.radarGrid}>
             {/* Stops points */}

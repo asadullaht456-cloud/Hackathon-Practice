@@ -6,14 +6,7 @@ import { useRouter } from 'expo-router';
 import { useAppTheme } from '@/hooks/ui/useAppTheme';
 import { useGlareMode } from '@/hooks/ui/useGlareMode';
 import { AppCard } from '@/components/AppCard';
-
-interface UserProfile {
-  id: string;
-  full_name: string;
-  role: 'citizen' | 'student';
-  institution?: string | null;
-  student_verified_at?: string | null;
-}
+import { getProfile, Profile } from '@/services';
 
 export default function ProfileScreen() {
   const router = useRouter();
@@ -21,25 +14,15 @@ export default function ProfileScreen() {
   const { colors, spacing, borderRadius, isGlare, mode, toggleGlareMode } = useAppTheme();
   const { autoGlareEnabled, setAutoGlareEnabled, currentLux, sensorAvailable } = useGlareMode();
 
-  const [profile, setProfile] = useState<UserProfile>({
-    id: 'u1',
-    full_name: 'Ayesha Khan',
-    role: 'citizen',
-    institution: null,
-    student_verified_at: null,
-  });
+  const [profile, setProfile] = useState<Profile | null>(null);
 
   useEffect(() => {
     async function loadProfile() {
       try {
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const services = require('@/services');
-        if (services?.getProfile) {
-          const p = await services.getProfile();
-          if (p) setProfile(p);
-        }
-      } catch {
-        // Keep initial profile state
+        const p = await getProfile();
+        if (p) setProfile(p);
+      } catch (err) {
+        console.error('Error fetching profile:', err);
       }
     }
     loadProfile();
@@ -58,7 +41,7 @@ export default function ProfileScreen() {
     router.replace('/(auth)/login' as any);
   };
 
-  const isStudent = profile.role === 'student';
+  const isStudent = profile?.role === 'student';
 
   return (
     <ScrollView
@@ -105,7 +88,7 @@ export default function ProfileScreen() {
                 fontWeight: isGlare ? '800' : '700',
               }}
             >
-              {profile.full_name}
+              {profile?.full_name || 'Passenger'}
             </Text>
             <View style={styles.badgeRow}>
               <View
@@ -137,7 +120,7 @@ export default function ProfileScreen() {
           </View>
         </View>
 
-        {isStudent && profile.institution && (
+        {isStudent && profile?.institution && (
           <View
             style={[
               styles.studentInfoBox,
@@ -179,7 +162,7 @@ export default function ProfileScreen() {
           style={{ color: colors.textSecondary, marginBottom: spacing.three }}
         >
           Maximizes contrast, sharpens borders, and boosts readability under harsh direct Pakistani
-          sunlight at outdoor bus stops.
+          sunlight at outdoor bus shelters.
         </Text>
 
         {/* Manual Glare Toggle */}

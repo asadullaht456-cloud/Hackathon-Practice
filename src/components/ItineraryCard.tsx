@@ -3,23 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { Icon, Text } from 'react-native-paper';
 import { useAppTheme } from '@/hooks/ui/useAppTheme';
 import { AppCard } from '@/components/AppCard';
-
-export interface ItineraryLeg {
-  route_id: string;
-  from: string;
-  to: string;
-  minutes: number;
-  fare_pkr: number;
-  walk_minutes_after?: number;
-}
-
-export interface Itinerary {
-  mode: 'fastest' | 'cheapest';
-  total_minutes: number;
-  total_fare_pkr: number;
-  transfers: number;
-  legs: ItineraryLeg[];
-}
+import { Itinerary, Leg, NetworkType } from '@/services/types';
 
 export interface ItineraryCardProps {
   itinerary: Itinerary;
@@ -27,14 +11,16 @@ export interface ItineraryCardProps {
 }
 
 /**
- * ItineraryCard: Displays journey summary and step-by-step transit legs.
+ * ItineraryCard: Displays journey summary and step-by-step transit legs
+ * directly typed against services/types.ts.
  */
 export const ItineraryCard: React.FC<ItineraryCardProps> = ({ itinerary, onSelect }) => {
   const { colors, spacing, borderRadius, isGlare } = useAppTheme();
 
-  const getNetworkForRoute = (routeId: string) => {
-    if (routeId.startsWith('MB')) return 'metrobus';
-    if (routeId.startsWith('OL')) return 'orange';
+  const resolveNetwork = (leg: Leg): NetworkType => {
+    if (leg.network) return leg.network;
+    if (leg.route_id.startsWith('MB')) return 'metrobus';
+    if (leg.route_id.startsWith('OL')) return 'orange';
     return 'speedo';
   };
 
@@ -100,8 +86,11 @@ export const ItineraryCard: React.FC<ItineraryCardProps> = ({ itinerary, onSelec
       {/* Route Legs */}
       <View style={[styles.legsContainer, { marginTop: spacing.four }]}>
         {itinerary.legs.map((leg, index) => {
-          const network = getNetworkForRoute(leg.route_id);
+          const network = resolveNetwork(leg);
           const networkColor = colors.network[network];
+          const fromName = leg.from_name || leg.from;
+          const toName = leg.to_name || leg.to;
+          const routeTitle = leg.route_name || leg.route_id;
 
           return (
             <View key={`${leg.route_id}-${index}`} style={styles.legWrapper}>
@@ -152,7 +141,7 @@ export const ItineraryCard: React.FC<ItineraryCardProps> = ({ itinerary, onSelec
                       fontWeight: isGlare ? '700' : '600',
                     }}
                   >
-                    {leg.from} → {leg.to}
+                    {fromName} → {toName}
                   </Text>
                   <Text
                     variant="labelSmall"
@@ -161,13 +150,13 @@ export const ItineraryCard: React.FC<ItineraryCardProps> = ({ itinerary, onSelec
                       marginTop: spacing.half,
                     }}
                   >
-                    {leg.minutes} mins • Rs. {leg.fare_pkr}
+                    {routeTitle} • {leg.minutes} mins • Rs. {leg.fare_pkr}
                   </Text>
                 </View>
               </View>
 
-              {/* Transfer walk if applicable */}
-              {leg.walk_minutes_after !== undefined && leg.walk_minutes_after > 0 && (
+              {/* Transfer walk if subsequent legs exist */}
+              {index < itinerary.legs.length - 1 && (
                 <View
                   style={[
                     styles.walkRow,
@@ -188,7 +177,7 @@ export const ItineraryCard: React.FC<ItineraryCardProps> = ({ itinerary, onSelec
                       marginLeft: spacing.one,
                     }}
                   >
-                    Walk {leg.walk_minutes_after} min to transfer
+                    Transfer connection (2-3 min walk)
                   </Text>
                 </View>
               )}

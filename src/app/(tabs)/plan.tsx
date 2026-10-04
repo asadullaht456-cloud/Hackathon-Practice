@@ -1,35 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, ScrollView, Pressable } from 'react-native';
-import { Text, SegmentedButtons, Button, Icon, Menu, Divider } from 'react-native-paper';
+import { Text, SegmentedButtons, Icon, Menu, Divider } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAppTheme } from '@/hooks/ui/useAppTheme';
 import { StateView } from '@/components/StateView';
 import { AppCard } from '@/components/AppCard';
-import { ItineraryCard, Itinerary } from '@/components/ItineraryCard';
-
-interface StopItem {
-  id: string;
-  name: string;
-  network: 'metrobus' | 'orange' | 'speedo';
-}
-
-const DEFAULT_STOPS: StopItem[] = [
-  { id: 'kalma_chowk', name: 'Kalma Chowk', network: 'metrobus' },
-  { id: 'gajju_matta', name: 'Gajju Matta', network: 'metrobus' },
-  { id: 'chauburji_mb', name: 'Chauburji (Metrobus)', network: 'metrobus' },
-  { id: 'shahdara', name: 'Shahdara', network: 'metrobus' },
-  { id: 'ali_town', name: 'Ali Town', network: 'orange' },
-  { id: 'wahdat_road', name: 'Wahdat Road', network: 'orange' },
-  { id: 'chauburji_ol', name: 'Chauburji (Orange)', network: 'orange' },
-  { id: 'sp_kalma', name: 'Kalma Chowk (Speedo)', network: 'speedo' },
-  { id: 'sp_liberty', name: 'Liberty Market', network: 'speedo' },
-  { id: 'sp_gulberg', name: 'Gulberg Main', network: 'speedo' },
-];
+import { ItineraryCard } from '@/components/ItineraryCard';
+import { getStops, planTrip, Stop, Itinerary } from '@/services';
 
 export default function PlanScreen() {
   const insets = useSafeAreaInsets();
   const { colors, spacing, borderRadius, isGlare } = useAppTheme();
 
+  const [stops, setStops] = useState<Stop[]>([]);
   const [originStop, setOriginStop] = useState<string>('kalma_chowk');
   const [destStop, setDestStop] = useState<string>('chauburji_ol');
   const [mode, setMode] = useState<'fastest' | 'cheapest'>('fastest');
@@ -38,92 +21,46 @@ export default function PlanScreen() {
   const [loading, setLoading] = useState<boolean>(false);
   const [itinerary, setItinerary] = useState<Itinerary | null>(null);
 
-  // Plan trip calculation
+  // Fetch stops list on mount
+  useEffect(() => {
+    async function loadStops() {
+      try {
+        const fetched = await getStops();
+        if (fetched?.length) {
+          setStops(fetched);
+          if (!originStop) setOriginStop(fetched[0].id);
+          if (!destStop && fetched.length > 1) setDestStop(fetched[1].id);
+        }
+      } catch (err) {
+        console.error('Error fetching stops:', err);
+      }
+    }
+    loadStops();
+  }, []);
+
+  // Compute route through backend planner service
   const calculateRoute = async (fromId: string, toId: string, selectedMode: 'fastest' | 'cheapest') => {
+    if (!fromId || !toId || fromId === toId) {
+      setItinerary(null);
+      return;
+    }
+
     setLoading(true);
     try {
-      // Check if services/planner exists
-      try {
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const services = require('@/services');
-        if (services?.planTrip) {
-          const res = await services.planTrip(fromId, toId, selectedMode);
-          if (res) {
-            setItinerary(res);
-            return;
-          }
-        }
-      } catch {
-        // Fallback to high-fidelity mock computation per ARCHITECTURE.md §6
-      }
-
-      // Simulated planner computation
-      const origin = DEFAULT_STOPS.find((s) => s.id === fromId)?.name || 'Origin';
-      const destination = DEFAULT_STOPS.find((s) => s.id === toId)?.name || 'Destination';
-
-      if (fromId === toId) {
-        setItinerary(null);
-        return;
-      }
-
-      // Multimodal transfer mock between networks
-      if (selectedMode === 'cheapest') {
-        setItinerary({
-          mode: 'cheapest',
-          total_minutes: 38,
-          total_fare_pkr: 50,
-          transfers: 1,
-          legs: [
-            {
-              route_id: 'MB',
-              from: origin,
-              to: 'Chauburji (Metrobus)',
-              minutes: 18,
-              fare_pkr: 30,
-              walk_minutes_after: 3,
-            },
-            {
-              route_id: 'SP1',
-              from: 'Chauburji (Orange)',
-              to: destination,
-              minutes: 17,
-              fare_pkr: 20,
-            },
-          ],
-        });
-      } else {
-        // Fastest
-        setItinerary({
-          mode: 'fastest',
-          total_minutes: 24,
-          total_fare_pkr: 70,
-          transfers: 1,
-          legs: [
-            {
-              route_id: 'OL',
-              from: origin,
-              to: 'Chauburji (Orange)',
-              minutes: 12,
-              fare_pkr: 40,
-              walk_minutes_after: 2,
-            },
-            {
-              route_id: 'MB',
-              from: 'Chauburji (Metrobus)',
-              to: destination,
-              minutes: 10,
-              fare_pkr: 30,
-            },
-          ],
-        });
-      }
+      const res = await planTrip(fromId, toId, selectedMode);
+      setItinerary(res);
+    } catch (err) {
+      console.error('Error planning trip:', err);
+      setItinerary(null);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    calculateRoute(originStop, destStop, mode);
+    if (originStop && destStop) {
+      calculateRoute(originStop, destStop, mode);
+    }
   }, [originStop, destStop, mode]);
 
   const handleSwap = () => {
@@ -133,7 +70,7 @@ export default function PlanScreen() {
   };
 
   const getStopName = (id: string) => {
-    return DEFAULT_STOPS.find((s) => s.id === id)?.name || id;
+    return stops.find((s) => s.id === id)?.name || id;
   };
 
   return (
@@ -195,7 +132,7 @@ export default function PlanScreen() {
             </Pressable>
           }
         >
-          {DEFAULT_STOPS.map((s) => (
+          {stops.map((s) => (
             <Menu.Item
               key={s.id}
               onPress={() => {
@@ -263,7 +200,7 @@ export default function PlanScreen() {
             </Pressable>
           }
         >
-          {DEFAULT_STOPS.map((s) => (
+          {stops.map((s) => (
             <Menu.Item
               key={s.id}
               onPress={() => {
@@ -316,7 +253,7 @@ export default function PlanScreen() {
               marginBottom: spacing.two,
             }}
           >
-            Recommended Route
+            Recommended Route ({itinerary.mode.toUpperCase()})
           </Text>
           <ItineraryCard itinerary={itinerary} />
         </View>
