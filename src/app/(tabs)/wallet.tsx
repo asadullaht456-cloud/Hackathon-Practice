@@ -123,76 +123,160 @@ export default function WalletScreen() {
         />
       }
     >
-      <Text
-        variant="headlineMedium"
-        style={{
-          color: colors.text,
-          fontWeight: isGlare ? '800' : '700',
-          marginBottom: spacing.four,
-        }}
-      >
-        Transit Wallet & Pass
-      </Text>
+      {/* Title */}
+      <View style={{ marginBottom: spacing.three }}>
+        <Text
+          variant="headlineSmall"
+          style={{
+            color: colors.text,
+            fontWeight: isGlare ? '900' : '800',
+            letterSpacing: -0.5,
+          }}
+        >
+          Transit Wallet & Pass
+        </Text>
+        <Text variant="bodySmall" style={{ color: colors.textSecondary, marginTop: spacing.half }}>
+          Zero-fare student pass & contactless fare card
+        </Text>
+      </View>
 
-      {/* Balance Card */}
-      <AppCard variant="elevated" elevation={2} style={{ marginBottom: spacing.five }}>
-        <View style={styles.balanceHeaderRow}>
-          <View>
-            <Text variant="labelMedium" style={{ color: colors.textSecondary }}>
-              Current Balance
-            </Text>
+      {/* Stitch UI: Deep Emerald Chalo Cash Card */}
+      <View
+        style={[
+          styles.cashCardContainer,
+          {
+            backgroundColor: isGlare ? '#ffffff' : '#1e6819',
+            borderColor: isGlare ? '#000000' : 'transparent',
+            borderWidth: isGlare ? 2.5 : 0,
+            borderRadius: borderRadius.xl,
+            padding: spacing.five,
+            marginBottom: spacing.five,
+          },
+        ]}
+      >
+        {/* Top Meta Row */}
+        <View style={styles.cashCardTop}>
+          <View style={styles.cashCardBrand}>
+            <View
+              style={[
+                styles.brandDot,
+                { backgroundColor: isGlare ? '#000000' : '#a9f697' },
+              ]}
+            />
             <Text
-              variant="displaySmall"
+              variant="labelMedium"
               style={{
-                color: colors.primary,
-                fontWeight: isGlare ? '800' : '700',
-                marginTop: spacing.one,
+                color: isGlare ? '#000000' : '#eaffdf',
+                fontWeight: '800',
+                letterSpacing: 1,
+                textTransform: 'uppercase',
               }}
             >
-              Rs. {balance}
+              Chalo Cash Card
             </Text>
           </View>
 
+          <View
+            style={[
+              styles.nfcBadge,
+              {
+                backgroundColor: isGlare ? '#000000' : 'rgba(0,0,0,0.25)',
+                borderRadius: borderRadius.full,
+              },
+            ]}
+          >
+            <Text
+              variant="labelSmall"
+              style={{
+                color: '#ffffff',
+                fontWeight: '700',
+                fontSize: 11,
+              }}
+            >
+              NFC READY
+            </Text>
+          </View>
+        </View>
+
+        {/* Large Balance Display */}
+        <View style={{ marginVertical: spacing.three }}>
+          <Text
+            variant="headlineLarge"
+            style={{
+              color: isGlare ? '#000000' : '#ffffff',
+              fontWeight: isGlare ? '900' : '800',
+              letterSpacing: -1,
+            }}
+          >
+            PKR {balance}.00
+          </Text>
+          <View style={styles.roleSubRow}>
+            <Icon
+              source={role === 'student' ? 'school' : 'account-check'}
+              size={16}
+              color={isGlare ? '#000000' : '#eaffdf'}
+            />
+            <Text
+              variant="bodySmall"
+              style={{
+                color: isGlare ? '#000000' : '#eaffdf',
+                fontWeight: isGlare ? '800' : '600',
+                marginLeft: spacing.one,
+              }}
+            >
+              {role === 'student'
+                ? 'Student Zero-Fare Active • Punjab Mass Transit'
+                : 'Standard Citizen Fare Balance'}
+            </Text>
+          </View>
+        </View>
+
+        {/* Action Button Row */}
+        <View style={styles.cashCardActions}>
           <Button
             mode="contained"
             icon="plus-circle"
             onPress={() => setTopUpModalVisible(true)}
-            buttonColor={colors.primary}
-            textColor={colors.onPrimary}
+            buttonColor={isGlare ? '#000000' : '#ffffff'}
+            textColor={isGlare ? '#ffffff' : '#1e6819'}
             style={[
-              styles.topUpBtn,
-              isGlare && { borderWidth: 2, borderColor: colors.border },
+              styles.topUpPillBtn,
+              { borderRadius: borderRadius.full },
+              isGlare && { borderWidth: 1.5, borderColor: '#000000' },
             ]}
+            contentStyle={{ height: 44 }}
+            labelStyle={{ fontWeight: '800', fontSize: 14 }}
           >
-            Top Up
+            + Top Up Balance
           </Button>
-        </View>
 
-        <Divider style={{ marginVertical: spacing.three, backgroundColor: colors.border }} />
-
-        <View style={styles.roleBannerRow}>
           <View
             style={[
-              styles.roleDot,
-              { backgroundColor: role === 'student' ? colors.network.student : colors.primary },
+              styles.gatewayPill,
+              {
+                backgroundColor: isGlare ? '#f3f4f6' : 'rgba(0,0,0,0.2)',
+                borderRadius: borderRadius.full,
+              },
             ]}
-          />
-          <Text
-            variant="bodySmall"
-            style={{ color: colors.text, fontWeight: isGlare ? '700' : '500' }}
           >
-            Account Type:{' '}
+            <Icon
+              source="lightning-bolt"
+              size={14}
+              color={isGlare ? '#000000' : '#ffdcc6'}
+            />
             <Text
+              variant="labelSmall"
               style={{
-                color: role === 'student' ? colors.network.student : colors.primary,
+                color: isGlare ? '#000000' : '#ffffff',
                 fontWeight: '700',
+                marginLeft: 4,
               }}
             >
-              {role === 'student' ? 'Student Zero-Fare Pass' : 'Standard Citizen Pass'}
+              JazzCash / Raast
             </Text>
-          </Text>
+          </View>
         </View>
-      </AppCard>
+      </View>
 
       {/* Rotating Dynamic QR Pass */}
       <View style={{ marginBottom: spacing.six }}>
@@ -309,23 +393,53 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  balanceHeaderRow: {
+  cashCardContainer: {
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.15,
+    shadowRadius: 6,
+  },
+  cashCardTop: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  topUpBtn: {
-    borderRadius: 20,
-  },
-  roleBannerRow: {
+  cashCardBrand: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  roleDot: {
+  brandDot: {
     width: 8,
     height: 8,
     borderRadius: 4,
-    marginRight: 8,
+    marginRight: 6,
+  },
+  nfcBadge: {
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+  },
+  roleSubRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 4,
+  },
+  cashCardActions: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 8,
+  },
+  topUpPillBtn: {
+    flex: 1,
+    marginRight: 10,
+    elevation: 2,
+  },
+  gatewayPill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 12,
+    paddingVertical: 10,
   },
   txRow: {
     flexDirection: 'row',
@@ -336,6 +450,7 @@ const styles = StyleSheet.create({
   txLeft: {
     flexDirection: 'row',
     alignItems: 'center',
+    flex: 1,
   },
   txIconBubble: {
     width: 38,

@@ -6,6 +6,7 @@ import { useAppTheme } from '@/hooks/ui/useAppTheme';
 import { StateView } from '@/components/StateView';
 import { AppCard } from '@/components/AppCard';
 import { VehicleMarker } from '@/components/VehicleMarker';
+import { LahoreTransitSvgMap } from '@/components/LahoreTransitSvgMap';
 import { getStops, getVehicles, subscribeVehicles, Stop, Vehicle } from '@/services';
 
 export default function LiveMapScreen() {
@@ -133,89 +134,98 @@ export default function LiveMapScreen() {
           ))}
         </MapView>
       ) : (
-        /* Visual Interactive Radar Grid when native Google Maps library is pending build */
-        <View style={[styles.visualRadar, { backgroundColor: isGlare ? '#ffffff' : '#0f172a' }]}>
-          <View style={styles.radarGrid}>
-            {/* Stops points */}
-            {stops.map((s) => (
+        /* High-fidelity Vector Transit Radar matching Stitch design suite */
+        <LahoreTransitSvgMap
+          vehicles={filteredVehicles}
+          stops={stops}
+          selectedVehicle={selectedVehicle}
+          onSelectVehicle={setSelectedVehicle}
+        />
+      )}
+
+      {/* Floating Header: Stitch Brandmark, LHE Live Pulse & Filter Pills */}
+      <View style={[styles.headerOverlay, { top: insets.top + spacing.two }]}>
+        <View style={styles.topBrandRow}>
+          <View style={styles.brandTitleWrap}>
+            <Text
+              variant="headlineSmall"
+              style={{
+                color: colors.text,
+                fontWeight: isGlare ? '900' : '800',
+                letterSpacing: -0.5,
+              }}
+            >
+              Chalo
+            </Text>
+            <View
+              style={[
+                styles.liveTag,
+                {
+                  backgroundColor: isGlare ? '#ffffff' : colors.primaryContainer,
+                  borderColor: isGlare ? colors.border : 'transparent',
+                  borderWidth: isGlare ? 1.5 : 0,
+                  borderRadius: borderRadius.full,
+                  paddingHorizontal: spacing.two,
+                  paddingVertical: spacing.half,
+                  marginLeft: spacing.two,
+                },
+              ]}
+            >
               <View
-                key={s.id}
                 style={[
-                  styles.radarStopPoint,
+                  styles.pulseDot,
                   {
-                    left: `${((s.lng - 74.22) / 0.16) * 90 + 5}%`,
-                    top: `${((31.63 - s.lat) / 0.25) * 85 + 5}%`,
-                    backgroundColor: colors.network[s.network],
-                    borderColor: isGlare ? '#000000' : '#ffffff',
-                    borderWidth: isGlare ? 2 : 1,
+                    backgroundColor: pulse ? colors.primary : colors.success,
+                    transform: [{ scale: pulse ? 1.25 : 1.0 }],
                   },
                 ]}
               />
-            ))}
-
-            {/* Vehicle Markers */}
-            {filteredVehicles.map((v) => {
-              const leftPct = `${Math.min(92, Math.max(5, ((v.lng - 74.22) / 0.16) * 90 + 5))}%`;
-              const topPct = `${Math.min(90, Math.max(5, ((31.63 - v.lat) / 0.25) * 85 + 5))}%`;
-              return (
-                <Pressable
-                  key={v.id}
-                  onPress={() => setSelectedVehicle(v)}
-                  style={[styles.radarVehicleAnchor, { left: leftPct, top: topPct }]}
-                >
-                  <VehicleMarker
-                    id={v.id}
-                    routeId={v.route_id}
-                    heading={v.heading}
-                    selected={selectedVehicle?.id === v.id}
-                  />
-                </Pressable>
-              );
-            })}
+              <Text
+                variant="labelSmall"
+                style={{
+                  color: isGlare ? colors.text : colors.onPrimaryContainer,
+                  fontWeight: '800',
+                  marginLeft: spacing.one,
+                  letterSpacing: 0.5,
+                }}
+              >
+                LHE LIVE
+              </Text>
+            </View>
           </View>
-        </View>
-      )}
 
-      {/* Floating Header: Live Latency Badge & Filter Pills */}
-      <View style={[styles.headerOverlay, { top: insets.top + spacing.two }]}>
-        {/* Latency & Status Badge */}
-        <View
-          style={[
-            styles.latencyBadge,
-            {
-              backgroundColor: colors.card,
-              borderColor: isGlare ? colors.border : colors.borderStrong,
-              borderWidth: isGlare ? 2 : 1,
-              borderRadius: borderRadius.full,
-              paddingHorizontal: spacing.three,
-              paddingVertical: spacing.one,
-              marginBottom: spacing.two,
-            },
-          ]}
-        >
+          {/* Real-time telemetry pill */}
           <View
             style={[
-              styles.pulseDot,
+              styles.latencyBadge,
               {
-                backgroundColor: pulse ? colors.success : '#22c55e',
-                transform: [{ scale: pulse ? 1.2 : 1.0 }],
+                backgroundColor: colors.card,
+                borderColor: isGlare ? colors.border : colors.borderStrong,
+                borderWidth: isGlare ? 2 : 1,
+                borderRadius: borderRadius.full,
+                paddingHorizontal: spacing.three,
+                paddingVertical: spacing.half,
               },
             ]}
-          />
-          <Text
-            variant="labelMedium"
-            style={{
-              color: colors.text,
-              fontWeight: isGlare ? '800' : '700',
-              marginLeft: spacing.one,
-            }}
           >
-            Live • 1s Feed • {filteredVehicles.length} Vehicles
-          </Text>
+            <Text
+              variant="labelSmall"
+              style={{
+                color: colors.textSecondary,
+                fontWeight: isGlare ? '800' : '600',
+              }}
+            >
+              1s Telemetry • {filteredVehicles.length} Active
+            </Text>
+          </View>
         </View>
 
         {/* Network Filter Pills */}
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.pillScroll}>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={[styles.pillScroll, { marginTop: spacing.two }]}
+        >
           <Chip
             selected={selectedFilter === 'all'}
             onPress={() => setSelectedFilter('all')}
@@ -224,9 +234,12 @@ export default function LiveMapScreen() {
               selectedFilter === 'all' && { backgroundColor: colors.primary },
               isGlare && { borderWidth: 1.5, borderColor: colors.border },
             ]}
-            textStyle={{ color: selectedFilter === 'all' ? '#ffffff' : colors.text }}
+            textStyle={{
+              color: selectedFilter === 'all' ? '#ffffff' : colors.text,
+              fontWeight: isGlare ? '800' : '600',
+            }}
           >
-            All Networks
+            All Lines
           </Chip>
           <Chip
             selected={selectedFilter === 'metrobus'}
@@ -236,9 +249,12 @@ export default function LiveMapScreen() {
               selectedFilter === 'metrobus' && { backgroundColor: colors.network.metrobus },
               isGlare && { borderWidth: 1.5, borderColor: colors.border },
             ]}
-            textStyle={{ color: selectedFilter === 'metrobus' ? '#ffffff' : colors.text }}
+            textStyle={{
+              color: selectedFilter === 'metrobus' ? '#ffffff' : colors.text,
+              fontWeight: isGlare ? '800' : '600',
+            }}
           >
-            Metrobus
+            Metrobus Red
           </Chip>
           <Chip
             selected={selectedFilter === 'orange'}
@@ -248,7 +264,10 @@ export default function LiveMapScreen() {
               selectedFilter === 'orange' && { backgroundColor: colors.network.orange },
               isGlare && { borderWidth: 1.5, borderColor: colors.border },
             ]}
-            textStyle={{ color: selectedFilter === 'orange' ? '#ffffff' : colors.text }}
+            textStyle={{
+              color: selectedFilter === 'orange' ? '#ffffff' : colors.text,
+              fontWeight: isGlare ? '800' : '600',
+            }}
           >
             Orange Line
           </Chip>
@@ -260,85 +279,227 @@ export default function LiveMapScreen() {
               selectedFilter === 'speedo' && { backgroundColor: colors.network.speedo },
               isGlare && { borderWidth: 1.5, borderColor: colors.border },
             ]}
-            textStyle={{ color: selectedFilter === 'speedo' ? '#ffffff' : colors.text }}
+            textStyle={{
+              color: selectedFilter === 'speedo' ? '#ffffff' : colors.text,
+              fontWeight: isGlare ? '800' : '600',
+            }}
           >
-            Speedo
+            Speedo Feeder
           </Chip>
         </ScrollView>
       </View>
 
-      {/* Selected Vehicle Info Card */}
+      {/* Selected Vehicle Info Card (Styled after Stitch Transit Radar Card) */}
       {selectedVehicle && (
         <View style={[styles.bottomSheetContainer, { bottom: spacing.four }]}>
           <AppCard elevation={3} variant="elevated">
+            {/* Header row with solid identification badges */}
             <View style={styles.vehicleCardHeader}>
-              <View style={styles.row}>
-                <Icon
-                  source={
-                    selectedVehicle.route_id.startsWith('OL')
-                      ? 'train'
-                      : selectedVehicle.route_id.startsWith('MB')
-                      ? 'bus-articulated-front'
-                      : 'bus'
-                  }
-                  size={24}
-                  color={colors.primary}
-                />
-                <View style={{ marginLeft: spacing.two }}>
+              <View style={styles.badgeRow}>
+                <View
+                  style={[
+                    styles.vehiclePill,
+                    {
+                      backgroundColor: isGlare
+                        ? '#000000'
+                        : selectedVehicle.route_id.startsWith('OL')
+                        ? colors.network.orange
+                        : selectedVehicle.route_id.startsWith('MB')
+                        ? colors.network.metrobus
+                        : colors.network.speedo,
+                      borderColor: isGlare ? '#000000' : 'transparent',
+                      borderWidth: isGlare ? 2 : 0,
+                    },
+                  ]}
+                >
+                  <Icon
+                    source={
+                      selectedVehicle.route_id.startsWith('OL')
+                        ? 'train'
+                        : selectedVehicle.route_id.startsWith('MB')
+                        ? 'bus-articulated-front'
+                        : 'bus'
+                    }
+                    size={16}
+                    color="#ffffff"
+                  />
                   <Text
-                    variant="titleMedium"
-                    style={{ color: colors.text, fontWeight: isGlare ? '800' : '700' }}
+                    variant="labelMedium"
+                    style={{
+                      color: '#ffffff',
+                      fontWeight: '800',
+                      marginLeft: spacing.one,
+                      letterSpacing: 0.5,
+                    }}
                   >
-                    Vehicle {selectedVehicle.id}
+                    {selectedVehicle.route_id.startsWith('OL')
+                      ? 'TRAIN'
+                      : selectedVehicle.route_id.startsWith('MB')
+                      ? 'METRO'
+                      : 'BUS'}{' '}
+                    {selectedVehicle.id}
                   </Text>
-                  <Text variant="labelSmall" style={{ color: colors.textSecondary }}>
-                    Route {selectedVehicle.route_id} • Heading {Math.round(selectedVehicle.heading)}°
+                </View>
+
+                <View
+                  style={[
+                    styles.networkTag,
+                    {
+                      backgroundColor: isGlare ? '#ffffff' : colors.surfaceVariant,
+                      borderColor: isGlare ? '#000000' : colors.border,
+                      borderWidth: 1,
+                    },
+                  ]}
+                >
+                  <Text
+                    variant="labelSmall"
+                    style={{
+                      color: isGlare ? '#000000' : colors.textSecondary,
+                      fontWeight: '800',
+                      letterSpacing: 0.5,
+                    }}
+                  >
+                    {selectedVehicle.route_id.startsWith('OL')
+                      ? 'ORANGE LINE'
+                      : selectedVehicle.route_id.startsWith('MB')
+                      ? 'METROBUS BRT'
+                      : 'SPEEDO FEEDER'}
                   </Text>
                 </View>
               </View>
 
-              <Pressable onPress={() => setSelectedVehicle(null)} style={styles.closeBtn}>
+              <Pressable onPress={() => setSelectedVehicle(null)} hitSlop={10} style={styles.closeBtn}>
                 <Icon source="close" size={20} color={colors.textSecondary} />
               </Pressable>
             </View>
 
-            <View style={[styles.vehicleStatsRow, { marginTop: spacing.three }]}>
-              <View style={styles.statBox}>
-                <Text variant="labelSmall" style={{ color: colors.textSecondary }}>
-                  Progress
+            {/* Approaching stop / waypoint */}
+            <View style={{ marginTop: spacing.two }}>
+              <Text
+                variant="labelSmall"
+                style={{
+                  color: colors.textMuted,
+                  fontWeight: '800',
+                  letterSpacing: 1,
+                  textTransform: 'uppercase',
+                }}
+              >
+                Next Approaching Stop
+              </Text>
+              <Text
+                variant="titleLarge"
+                style={{
+                  color: colors.text,
+                  fontWeight: isGlare ? '900' : '800',
+                  marginTop: spacing.half,
+                }}
+              >
+                {selectedVehicle.route_id.startsWith('OL')
+                  ? 'Chauburji Station'
+                  : selectedVehicle.route_id.startsWith('MB')
+                  ? 'Kalma Chowk Hub'
+                  : 'Liberty Market'}
+              </Text>
+              <Text
+                variant="bodySmall"
+                style={{ color: colors.textSecondary, marginTop: spacing.half }}
+              >
+                Platform 2 • Live GPS Telemetry
+              </Text>
+            </View>
+
+            {/* High-Glanceability Countdown & Fare Block (Stitch UI) */}
+            <View style={[styles.glanceGrid, { marginTop: spacing.three }]}>
+              <View
+                style={[
+                  styles.glanceBox,
+                  {
+                    backgroundColor: colors.surfaceVariant,
+                    borderColor: isGlare ? '#000000' : colors.border,
+                    borderWidth: isGlare ? 2 : 1,
+                    borderRadius: borderRadius.md,
+                    padding: spacing.two,
+                  },
+                ]}
+              >
+                <Text
+                  variant="labelSmall"
+                  style={{
+                    color: colors.textMuted,
+                    fontWeight: '800',
+                    letterSpacing: 0.5,
+                  }}
+                >
+                  ARRIVAL ETA
                 </Text>
                 <Text
-                  variant="bodyLarge"
-                  style={{ color: colors.text, fontWeight: isGlare ? '800' : '700' }}
+                  variant="headlineSmall"
+                  style={{
+                    color: colors.primary,
+                    fontWeight: '900',
+                    marginVertical: spacing.half,
+                    letterSpacing: -0.5,
+                  }}
                 >
-                  {Math.round(selectedVehicle.progress * 100)}%
+                  {Math.max(1, Math.round((1 - selectedVehicle.progress) * 8))} MIN
+                </Text>
+                <Text
+                  variant="labelSmall"
+                  style={{
+                    color: isGlare ? '#000000' : colors.primary,
+                    fontWeight: '700',
+                  }}
+                >
+                  ON SCHEDULE
                 </Text>
               </View>
-              <View style={styles.statBox}>
-                <Text variant="labelSmall" style={{ color: colors.textSecondary }}>
-                  Standard Fare
+
+              <View
+                style={[
+                  styles.glanceBox,
+                  {
+                    backgroundColor: colors.surfaceVariant,
+                    borderColor: isGlare ? '#000000' : colors.border,
+                    borderWidth: isGlare ? 2 : 1,
+                    borderRadius: borderRadius.md,
+                    padding: spacing.two,
+                  },
+                ]}
+              >
+                <Text
+                  variant="labelSmall"
+                  style={{
+                    color: colors.textMuted,
+                    fontWeight: '800',
+                    letterSpacing: 0.5,
+                  }}
+                >
+                  CORRIDOR FARE
                 </Text>
                 <Text
-                  variant="bodyLarge"
-                  style={{ color: colors.primary, fontWeight: isGlare ? '800' : '700' }}
+                  variant="headlineSmall"
+                  style={{
+                    color: colors.text,
+                    fontWeight: '900',
+                    marginVertical: spacing.half,
+                    letterSpacing: -0.5,
+                  }}
                 >
-                  {selectedVehicle.route_id.startsWith('OL')
-                    ? 'Rs. 40'
-                    : selectedVehicle.route_id.startsWith('MB')
-                    ? 'Rs. 30'
-                    : 'Rs. 20'}
+                  RS. 0
                 </Text>
-              </View>
-              <View style={styles.statBox}>
-                <Text variant="labelSmall" style={{ color: colors.textSecondary }}>
-                  Student Fare
-                </Text>
-                <Text
-                  variant="bodyLarge"
-                  style={{ color: colors.network.student, fontWeight: isGlare ? '800' : '700' }}
+                <View
+                  style={[
+                    styles.studentChip,
+                    { backgroundColor: colors.network.student, borderRadius: borderRadius.xs },
+                  ]}
                 >
-                  Rs. 0 (Free)
-                </Text>
+                  <Text
+                    variant="labelSmall"
+                    style={{ color: '#ffffff', fontWeight: '800', fontSize: 10 }}
+                  >
+                    STUDENT PASS
+                  </Text>
+                </View>
               </View>
             </View>
           </AppCard>
@@ -354,7 +515,7 @@ export default function LiveMapScreen() {
             backgroundColor: colors.card,
             borderColor: isGlare ? colors.border : 'transparent',
             borderWidth: isGlare ? 2 : 0,
-            bottom: selectedVehicle ? 180 : 20,
+            bottom: selectedVehicle ? 260 : 20,
           },
         ]}
         color={colors.primary}
@@ -371,42 +532,33 @@ const styles = StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject,
   },
-  visualRadar: {
-    ...StyleSheet.absoluteFillObject,
-  },
-  radarGrid: {
-    flex: 1,
-    position: 'relative',
-    margin: 20,
-  },
-  radarStopPoint: {
-    position: 'absolute',
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    marginLeft: -5,
-    marginTop: -5,
-  },
-  radarVehicleAnchor: {
-    position: 'absolute',
-    marginLeft: -25,
-    marginTop: -20,
-  },
   headerOverlay: {
     position: 'absolute',
     left: 16,
     right: 16,
     zIndex: 10,
   },
+  topBrandRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  brandTitleWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  liveTag: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   latencyBadge: {
     flexDirection: 'row',
     alignItems: 'center',
-    alignSelf: 'flex-start',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 3,
+    shadowOpacity: 0.08,
+    shadowRadius: 2,
+    elevation: 2,
   },
   pulseDot: {
     width: 8,
@@ -430,19 +582,38 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  row: {
+  badgeRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 8,
+  },
+  vehiclePill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 6,
+  },
+  networkTag: {
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 6,
   },
   closeBtn: {
     padding: 6,
   },
-  vehicleStatsRow: {
+  glanceGrid: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    gap: 12,
   },
-  statBox: {
+  glanceBox: {
+    flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
+  },
+  studentChip: {
+    paddingHorizontal: 6,
+    paddingVertical: 2,
   },
   recenterFab: {
     position: 'absolute',
@@ -450,3 +621,4 @@ const styles = StyleSheet.create({
     zIndex: 12,
   },
 });
+

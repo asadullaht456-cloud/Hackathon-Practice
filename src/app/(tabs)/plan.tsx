@@ -82,19 +82,60 @@ export default function PlanScreen() {
         paddingHorizontal: spacing.four,
       }}
     >
-      {/* Title */}
-      <Text
-        variant="headlineMedium"
-        style={{
-          color: colors.text,
-          fontWeight: isGlare ? '800' : '700',
-          marginBottom: spacing.four,
-        }}
-      >
-        Plan Multimodal Trip
-      </Text>
+      {/* Screen Heading with Live Status (Stitch UI) */}
+      <View style={{ marginBottom: spacing.four }}>
+        <View style={styles.headingRow}>
+          <Text
+            variant="headlineSmall"
+            style={{
+              color: colors.text,
+              fontWeight: isGlare ? '900' : '800',
+              letterSpacing: -0.5,
+            }}
+          >
+            Plan Multimodal Trip
+          </Text>
+          <View
+            style={[
+              styles.syncdBadge,
+              {
+                backgroundColor: isGlare ? '#ffffff' : colors.surfaceVariant,
+                borderColor: isGlare ? colors.border : colors.borderStrong,
+                borderWidth: isGlare ? 1.5 : 1,
+                borderRadius: borderRadius.full,
+                paddingHorizontal: spacing.two,
+                paddingVertical: spacing.half,
+              },
+            ]}
+          >
+            <View
+              style={[
+                styles.syncdDot,
+                { backgroundColor: colors.primary },
+              ]}
+            />
+            <Text
+              variant="labelSmall"
+              style={{
+                color: isGlare ? colors.text : colors.primary,
+                fontWeight: '800',
+                marginLeft: spacing.one,
+                letterSpacing: 0.5,
+              }}
+            >
+              SYNCD
+            </Text>
+          </View>
+        </View>
+        <Text
+          variant="bodySmall"
+          style={{ color: colors.textSecondary, marginTop: spacing.half }}
+        >
+          Real-time transfers across Lahore Metro, Orange Line & Speedo
+        </Text>
+      </View>
 
-      {/* Stop Selection Card */}
+      {/* Origin / Destination Interactive Card (Stitch UI) */}
       <AppCard variant="elevated" elevation={2} style={{ marginBottom: spacing.four }}>
         {/* Origin Selector */}
         <Menu
@@ -104,7 +145,7 @@ export default function PlanScreen() {
             <Pressable
               onPress={() => setOriginMenuVisible(true)}
               style={[
-                styles.stopPickerRow,
+                styles.stopNodeRow,
                 {
                   backgroundColor: colors.surfaceVariant,
                   borderRadius: borderRadius.md,
@@ -114,17 +155,46 @@ export default function PlanScreen() {
                 },
               ]}
             >
-              <View style={styles.row}>
-                <Icon source="circle-slice-8" size={20} color={colors.primary} />
-                <View style={{ marginLeft: spacing.two }}>
-                  <Text variant="labelSmall" style={{ color: colors.textSecondary }}>
-                    From (Origin)
+              <View style={styles.nodeLeft}>
+                <View
+                  style={[
+                    styles.nodeIconBubble,
+                    {
+                      backgroundColor: isGlare ? '#000000' : colors.primaryContainer,
+                      borderRadius: borderRadius.full,
+                    },
+                  ]}
+                >
+                  <Icon
+                    source="circle-double"
+                    size={18}
+                    color={isGlare ? '#ffffff' : colors.primary}
+                  />
+                </View>
+                <View style={{ marginLeft: spacing.two, flex: 1 }}>
+                  <Text
+                    variant="labelSmall"
+                    style={{
+                      color: colors.textMuted,
+                      fontWeight: '800',
+                      letterSpacing: 0.5,
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    Origin
                   </Text>
                   <Text
                     variant="titleMedium"
-                    style={{ color: colors.text, fontWeight: isGlare ? '700' : '600' }}
+                    style={{
+                      color: colors.text,
+                      fontWeight: isGlare ? '800' : '700',
+                      marginTop: spacing.half,
+                    }}
                   >
                     {getStopName(originStop)}
+                  </Text>
+                  <Text variant="labelSmall" style={{ color: colors.textSecondary }}>
+                    {stops.find((s) => s.id === originStop)?.network.toUpperCase() || 'METRO'} Station
                   </Text>
                 </View>
               </View>
@@ -144,13 +214,13 @@ export default function PlanScreen() {
           ))}
         </Menu>
 
-        {/* Swap Button */}
-        <View style={styles.swapRow}>
-          <Divider style={[styles.divider, { backgroundColor: colors.borderStrong }]} />
+        {/* Swap Action Rail */}
+        <View style={styles.swapActionRail}>
+          <Divider style={[styles.railLine, { backgroundColor: colors.border }]} />
           <Pressable
             onPress={handleSwap}
             style={[
-              styles.swapButton,
+              styles.swapButtonCircle,
               {
                 backgroundColor: colors.card,
                 borderColor: isGlare ? colors.border : colors.borderStrong,
@@ -158,10 +228,11 @@ export default function PlanScreen() {
                 borderRadius: borderRadius.full,
               },
             ]}
+            hitSlop={8}
           >
             <Icon source="swap-vertical" size={20} color={colors.primary} />
           </Pressable>
-          <Divider style={[styles.divider, { backgroundColor: colors.borderStrong }]} />
+          <Divider style={[styles.railLine, { backgroundColor: colors.border }]} />
         </View>
 
         {/* Destination Selector */}
@@ -172,7 +243,7 @@ export default function PlanScreen() {
             <Pressable
               onPress={() => setDestMenuVisible(true)}
               style={[
-                styles.stopPickerRow,
+                styles.stopNodeRow,
                 {
                   backgroundColor: colors.surfaceVariant,
                   borderRadius: borderRadius.md,
@@ -182,17 +253,46 @@ export default function PlanScreen() {
                 },
               ]}
             >
-              <View style={styles.row}>
-                <Icon source="map-marker" size={20} color={colors.error} />
-                <View style={{ marginLeft: spacing.two }}>
-                  <Text variant="labelSmall" style={{ color: colors.textSecondary }}>
-                    To (Destination)
+              <View style={styles.nodeLeft}>
+                <View
+                  style={[
+                    styles.nodeIconBubble,
+                    {
+                      backgroundColor: isGlare ? '#000000' : '#ffdcc6',
+                      borderRadius: borderRadius.full,
+                    },
+                  ]}
+                >
+                  <Icon
+                    source="map-marker"
+                    size={18}
+                    color={isGlare ? '#ffffff' : '#b45900'}
+                  />
+                </View>
+                <View style={{ marginLeft: spacing.two, flex: 1 }}>
+                  <Text
+                    variant="labelSmall"
+                    style={{
+                      color: colors.textMuted,
+                      fontWeight: '800',
+                      letterSpacing: 0.5,
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    Destination
                   </Text>
                   <Text
                     variant="titleMedium"
-                    style={{ color: colors.text, fontWeight: isGlare ? '700' : '600' }}
+                    style={{
+                      color: colors.text,
+                      fontWeight: isGlare ? '800' : '700',
+                      marginTop: spacing.half,
+                    }}
                   >
                     {getStopName(destStop)}
+                  </Text>
+                  <Text variant="labelSmall" style={{ color: colors.textSecondary }}>
+                    {stops.find((s) => s.id === destStop)?.network.toUpperCase() || 'ORANGE'} Station
                   </Text>
                 </View>
               </View>
@@ -211,26 +311,158 @@ export default function PlanScreen() {
             />
           ))}
         </Menu>
-      </AppCard>
 
-      {/* Mode Toggle: Fastest vs Cheapest */}
-      <View style={{ marginBottom: spacing.five }}>
-        <SegmentedButtons
-          value={mode}
-          onValueChange={(val) => setMode(val as 'fastest' | 'cheapest')}
-          buttons={[
+        {/* Departure Meta bar */}
+        <View
+          style={[
+            styles.departNowBar,
             {
-              value: 'fastest',
-              label: '⚡ Fastest Route',
-              style: isGlare ? { borderWidth: 2, borderColor: colors.border } : {},
-            },
-            {
-              value: 'cheapest',
-              label: '💰 Cheapest Route',
-              style: isGlare ? { borderWidth: 2, borderColor: colors.border } : {},
+              backgroundColor: colors.background,
+              borderRadius: borderRadius.sm,
+              marginTop: spacing.two,
+              padding: spacing.two,
             },
           ]}
-        />
+        >
+          <View style={styles.departLeft}>
+            <Icon source="clock-outline" size={16} color={colors.primary} />
+            <Text
+              variant="labelMedium"
+              style={{
+                color: colors.text,
+                fontWeight: isGlare ? '800' : '600',
+                marginLeft: spacing.one,
+              }}
+            >
+              Depart Now
+            </Text>
+          </View>
+          <Text
+            variant="labelSmall"
+            style={{ color: colors.textSecondary, fontWeight: '600' }}
+          >
+            Step-free access priority
+          </Text>
+        </View>
+      </AppCard>
+
+      {/* Dual Strategy Cards: Fastest vs Cheapest (Stitch UI) */}
+      <View style={[styles.strategyRow, { marginBottom: spacing.four }]}>
+        <Pressable
+          onPress={() => setMode('fastest')}
+          style={[
+            styles.strategyCard,
+            {
+              backgroundColor: mode === 'fastest' ? colors.cardElevated : colors.card,
+              borderColor:
+                mode === 'fastest'
+                  ? colors.primary
+                  : isGlare
+                  ? colors.border
+                  : colors.borderStrong,
+              borderWidth: mode === 'fastest' ? (isGlare ? 3 : 2) : 1,
+              borderRadius: borderRadius.lg,
+              padding: spacing.three,
+            },
+          ]}
+        >
+          <View style={styles.strategyHeader}>
+            <Text
+              variant="labelSmall"
+              style={{
+                color: mode === 'fastest' ? colors.primary : colors.textMuted,
+                fontWeight: '800',
+                letterSpacing: 0.5,
+              }}
+            >
+              ⚡ FASTEST
+            </Text>
+            {mode === 'fastest' && (
+              <View
+                style={[
+                  styles.activeDot,
+                  { backgroundColor: colors.primary, borderRadius: borderRadius.full },
+                ]}
+              />
+            )}
+          </View>
+          <Text
+            variant="titleLarge"
+            style={{
+              color: colors.text,
+              fontWeight: isGlare ? '900' : '800',
+              marginTop: spacing.one,
+            }}
+          >
+            {itinerary && mode === 'fastest' ? `${itinerary.total_minutes}m` : '~28m'}
+          </Text>
+          <Text
+            variant="labelSmall"
+            style={{ color: colors.textSecondary, marginTop: spacing.half }}
+          >
+            {itinerary && mode === 'fastest'
+              ? `${itinerary.transfers} transfers • Rs. ${itinerary.total_fare_pkr}`
+              : 'Direct / 1 transfer'}
+          </Text>
+        </Pressable>
+
+        <Pressable
+          onPress={() => setMode('cheapest')}
+          style={[
+            styles.strategyCard,
+            {
+              backgroundColor: mode === 'cheapest' ? colors.cardElevated : colors.card,
+              borderColor:
+                mode === 'cheapest'
+                  ? colors.primary
+                  : isGlare
+                  ? colors.border
+                  : colors.borderStrong,
+              borderWidth: mode === 'cheapest' ? (isGlare ? 3 : 2) : 1,
+              borderRadius: borderRadius.lg,
+              padding: spacing.three,
+            },
+          ]}
+        >
+          <View style={styles.strategyHeader}>
+            <Text
+              variant="labelSmall"
+              style={{
+                color: mode === 'cheapest' ? colors.primary : colors.textMuted,
+                fontWeight: '800',
+                letterSpacing: 0.5,
+              }}
+            >
+              💰 CHEAPEST
+            </Text>
+            {mode === 'cheapest' && (
+              <View
+                style={[
+                  styles.activeDot,
+                  { backgroundColor: colors.primary, borderRadius: borderRadius.full },
+                ]}
+              />
+            )}
+          </View>
+          <Text
+            variant="titleLarge"
+            style={{
+              color: colors.text,
+              fontWeight: isGlare ? '900' : '800',
+              marginTop: spacing.one,
+            }}
+          >
+            {itinerary && mode === 'cheapest' ? `${itinerary.total_minutes}m` : '~35m'}
+          </Text>
+          <Text
+            variant="labelSmall"
+            style={{ color: colors.textSecondary, marginTop: spacing.half }}
+          >
+            {itinerary && mode === 'cheapest'
+              ? `Rs. ${itinerary.total_fare_pkr} (Student Free)`
+              : 'Min fare route'}
+          </Text>
+        </Pressable>
       </View>
 
       {/* Route Results */}
@@ -253,7 +485,7 @@ export default function PlanScreen() {
               marginBottom: spacing.two,
             }}
           >
-            Recommended Route ({itinerary.mode.toUpperCase()})
+            Optimal Route Itinerary ({mode.toUpperCase()})
           </Text>
           <ItineraryCard itinerary={itinerary} />
         </View>
@@ -273,30 +505,89 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  stopPickerRow: {
+  headingRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  syncdBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 1,
+  },
+  syncdDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+  },
+  stopNodeRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  row: {
+  nodeLeft: {
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  swapRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 8,
-  },
-  divider: {
     flex: 1,
   },
-  swapButton: {
-    padding: 8,
-    marginHorizontal: 10,
+  nodeIconBubble: {
+    width: 36,
+    height: 36,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  swapActionRail: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 4,
+  },
+  railLine: {
+    flex: 1,
+  },
+  swapButtonCircle: {
+    width: 38,
+    height: 38,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 12,
     elevation: 2,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.1,
-    shadowRadius: 2,
+    shadowRadius: 3,
+  },
+  departNowBar: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  departLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  strategyRow: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  strategyCard: {
+    flex: 1,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.08,
+    shadowRadius: 3,
+  },
+  strategyHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  activeDot: {
+    width: 8,
+    height: 8,
   },
 });

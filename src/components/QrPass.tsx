@@ -99,109 +99,185 @@ export const QrPass: React.FC<QrPassProps> = ({
           borderRadius: borderRadius.xl,
           borderColor: isGlare ? colors.border : colors.borderStrong,
           borderWidth: isGlare ? 2.5 : 1,
-          padding: spacing.five,
+          overflow: 'hidden',
         },
       ]}
     >
-      {/* Pass Type Badge */}
-      <View style={styles.header}>
-        <View
-          style={[
-            styles.badge,
-            {
-              backgroundColor: isGlare ? '#ffffff' : badgeColor,
-              borderColor: isGlare ? colors.border : 'transparent',
-              borderWidth: isGlare ? 2 : 0,
-              borderRadius: borderRadius.full,
-              paddingHorizontal: spacing.three,
-              paddingVertical: spacing.one,
-            },
-          ]}
-        >
-          <Icon
-            source={isStudent ? 'school' : 'transit-detour'}
-            size={16}
-            color={isGlare ? colors.text : '#ffffff'}
-          />
-          <Text
-            variant="labelMedium"
-            style={[
-              styles.badgeText,
-              {
-                color: isGlare ? colors.text : '#ffffff',
-                fontWeight: isGlare ? '800' : '700',
-                marginLeft: spacing.one,
-              },
-            ]}
-          >
-            {isStudent ? 'STUDENT ZERO-FARE PASS' : 'PAY-AS-YOU-GO PASS'}
-          </Text>
-        </View>
-
-        <Pressable
-          onPress={onRefresh}
-          disabled={loading}
-          style={({ pressed }) => [styles.refreshButton, pressed && { opacity: 0.6 }]}
-        >
-          <Icon
-            source="refresh"
-            size={20}
-            color={isGlare ? colors.text : colors.primary}
-          />
-        </Pressable>
-      </View>
-
-      {/* QR Code Container */}
+      {/* Ticket Header Banner (Stitch UI) */}
       <View
         style={[
-          styles.qrWrapper,
+          styles.ticketHeader,
           {
-            backgroundColor: '#ffffff',
-            borderColor: isGlare ? '#000000' : 'rgba(0,0,0,0.08)',
-            borderWidth: isGlare ? 2 : 1,
-            borderRadius: borderRadius.lg,
-            padding: spacing.four,
-            marginVertical: spacing.four,
+            backgroundColor: isGlare ? '#000000' : isStudent ? '#8E24AA' : colors.primary,
+            paddingHorizontal: spacing.four,
+            paddingVertical: spacing.two,
           },
         ]}
       >
-        {renderQrVisual()}
-      </View>
-
-      {/* Countdown and Expiry */}
-      <View style={styles.footer}>
-        <View style={styles.footerTextRow}>
-          <Text
-            variant="bodySmall"
-            style={{
-              color: colors.textSecondary,
-              fontWeight: isGlare ? '700' : '500',
-            }}
-          >
-            Refreshes in {secondsRemaining}s
+        <View style={styles.bannerLeft}>
+          <Text style={{ fontSize: 16, marginRight: 6 }}>
+            {isStudent ? '🎓' : '🎫'}
           </Text>
           <Text
-            variant="bodySmall"
+            variant="labelMedium"
             style={{
-              color: colors.textMuted,
+              color: '#ffffff',
+              fontWeight: '800',
+              letterSpacing: 0.5,
+              textTransform: 'uppercase',
             }}
           >
-            Valid on MB, OL & Speedo
+            {isStudent ? 'STUDENT ZERO-FARE PASS' : 'STANDARD CONTACTLESS PASS'}
           </Text>
         </View>
-        <ProgressBar
-          progress={progress}
-          color={isGlare ? '#000000' : badgeColor}
+
+        <View
           style={[
-            styles.progressBar,
+            styles.authBadge,
             {
-              backgroundColor: colors.surfaceVariant,
+              backgroundColor: 'rgba(255,255,255,0.2)',
               borderRadius: borderRadius.full,
-              height: 6,
-              marginTop: spacing.two,
             },
           ]}
-        />
+        >
+          <Text
+            variant="labelSmall"
+            style={{ color: '#ffffff', fontWeight: '800', fontSize: 10 }}
+          >
+            PMA AUTH
+          </Text>
+        </View>
+      </View>
+
+      {/* Main Ticket Body */}
+      <View style={[styles.ticketBody, { padding: spacing.four }]}>
+        {/* Anti-screenshot Live Token Warning */}
+        <View style={styles.tokenMetaRow}>
+          <Text
+            variant="labelSmall"
+            style={{
+              color: colors.textMuted,
+              fontWeight: '800',
+              letterSpacing: 0.5,
+            }}
+          >
+            ROTATING DYNAMIC QR
+          </Text>
+          <Pressable
+            onPress={onRefresh}
+            disabled={loading}
+            style={({ pressed }) => [styles.refreshBtn, pressed && { opacity: 0.6 }]}
+            hitSlop={8}
+          >
+            <Icon
+              source="refresh"
+              size={18}
+              color={isGlare ? colors.text : colors.primary}
+            />
+            <Text
+              variant="labelSmall"
+              style={{
+                color: isGlare ? colors.text : colors.primary,
+                fontWeight: '700',
+                marginLeft: 4,
+              }}
+            >
+              Refresh
+            </Text>
+          </Pressable>
+        </View>
+
+        {/* QR Code Frame */}
+        <View
+          style={[
+            styles.qrWrapper,
+            {
+              backgroundColor: '#ffffff',
+              borderColor: isGlare ? '#000000' : 'rgba(0,0,0,0.1)',
+              borderWidth: isGlare ? 2.5 : 1,
+              borderRadius: borderRadius.lg,
+              padding: spacing.three,
+              marginVertical: spacing.three,
+            },
+          ]}
+        >
+          {renderQrVisual()}
+        </View>
+
+        {/* Token Countdown & Security Meta */}
+        <View style={styles.footer}>
+          <View style={styles.footerTextRow}>
+            <View style={styles.countdownRow}>
+              <View
+                style={[
+                  styles.timerDot,
+                  { backgroundColor: secondsRemaining <= 5 ? colors.error : colors.primary },
+                ]}
+              />
+              <Text
+                variant="labelMedium"
+                style={{
+                  color: secondsRemaining <= 5 ? colors.error : colors.text,
+                  fontWeight: isGlare ? '800' : '700',
+                  marginLeft: spacing.one,
+                }}
+              >
+                Refreshing in {secondsRemaining}s
+              </Text>
+            </View>
+            <Text
+              variant="labelSmall"
+              style={{
+                color: colors.textMuted,
+                fontWeight: '600',
+              }}
+            >
+              MB • OLMT • SPEEDO
+            </Text>
+          </View>
+
+          <ProgressBar
+            progress={progress}
+            color={isGlare ? '#000000' : secondsRemaining <= 5 ? colors.error : badgeColor}
+            style={[
+              styles.progressBar,
+              {
+                backgroundColor: colors.surfaceVariant,
+                borderRadius: borderRadius.full,
+                height: 6,
+                marginTop: spacing.two,
+              },
+            ]}
+          />
+
+          {/* Bound Device Hash Pill */}
+          <View
+            style={[
+              styles.deviceHashPill,
+              {
+                backgroundColor: colors.surfaceVariant,
+                borderColor: isGlare ? colors.border : 'transparent',
+                borderWidth: isGlare ? 1 : 0,
+                borderRadius: borderRadius.sm,
+                marginTop: spacing.three,
+                padding: spacing.two,
+              },
+            ]}
+          >
+            <Icon source="shield-check" size={14} color={colors.primary} />
+            <Text
+              variant="labelSmall"
+              style={{
+                color: colors.textSecondary,
+                fontWeight: '600',
+                marginLeft: spacing.one,
+                fontSize: 10,
+              }}
+            >
+              Hardware-Bound Token • Offline NFC & Visual Scanner Ready
+            </Text>
+          </View>
+        </View>
       </View>
     </View>
   );
@@ -209,29 +285,41 @@ export const QrPass: React.FC<QrPassProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
     width: '100%',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 6,
-    elevation: 3,
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.12,
+    shadowRadius: 8,
+    elevation: 4,
   },
-  header: {
+  ticketHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '100%',
   },
-  badge: {
+  bannerLeft: {
     flexDirection: 'row',
     alignItems: 'center',
+    flex: 1,
   },
-  badgeText: {
-    letterSpacing: 0.5,
+  authBadge: {
+    paddingHorizontal: 8,
+    paddingVertical: 2,
   },
-  refreshButton: {
-    padding: 6,
+  ticketBody: {
+    alignItems: 'center',
+    width: '100%',
+  },
+  tokenMetaRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  refreshBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   qrWrapper: {
     alignItems: 'center',
@@ -255,7 +343,21 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  countdownRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  timerDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+  },
   progressBar: {
     width: '100%',
+  },
+  deviceHashPill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

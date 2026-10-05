@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface": "#f8f9ff", "surface-tint": "#266c20", "on-primary-fixed-variant": "#055307", "tertiary-fixed-dim": "#ffb786", "secondary-fixed-dim": "#a5c8ff", "on-primary-fixed": "#002201", "tertiary-container": "#b45900", "tertiary-fixed": "#ffdcc6", "surface-container-low": "#eff4ff", "secondary": "#005faf", "on-tertiary": "#ffffff", "outline": "#717a6b", "primary-container": "#3b8132", "inverse-primary": "#8ed97e", "primary": "#20671b", "on-tertiary-fixed-variant": "#723600", "outline-variant": "#c0c9b9", "on-secondary": "#ffffff", "on-background": "#0b1c30", "on-primary-container": "#eaffdf", "on-primary": "#ffffff", "on-surface-variant": "#41493d", "on-secondary-container": "#003567", "secondary-fixed": "#d4e3ff", "surface-variant": "#d3e4fe", "on-error-container": "#93000a", "primary-fixed-dim": "#8ed97e", "background": "#f8f9ff", "primary-fixed": "#a9f697", "surface-container": "#e5eeff", "secondary-container": "#54a0fe", "error-container": "#ffdad6", "on-tertiary-container": "#fff7f4", "surface-bright": "#f8f9ff", "on-error": "#ffffff", "inverse-surface": "#213145", "on-secondary-fixed": "#001c3a", "error": "#ba1a1a", "on-secondary-fixed-variant": "#004786", "surface-container-highest": "#d3e4fe", "surface-container-high": "#dce9ff", "surface-dim": "#cbdbf5", "tertiary": "#8f4600", "on-tertiary-fixed": "#311300", "inverse-on-surface": "#eaf1ff", "on-surface": "#0b1c30", "surface-container-lowest": "#ffffff" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-sm": "0.5rem", "margin": "1rem", "gutter": "0.75rem", "space-md": "0.75rem", "space-xs": "0.25rem", "space-lg": "1rem", "space-xl": "1.5rem" }, fontFamily: { "body-md": ["Plus Jakarta Sans"], "transit-countdown": ["Plus Jakarta Sans"], "label-lg": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "headline-xl": ["Plus Jakarta Sans"] }, fontSize: { "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }], "transit-countdown": ["28px", { lineHeight: "32px", letterSpacing: "-0.03em", fontWeight: "800" }], "label-lg": ["14px", { lineHeight: "18px", letterSpacing: "0.02em", fontWeight: "700" }], "label-sm": ["10px", { lineHeight: "12px", letterSpacing: "0.06em", fontWeight: "800" }], "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "600" }], "body-lg": ["16px", { lineHeight: "24px", fontWeight: "500" }], "body-sm": ["12px", { lineHeight: "16px", fontWeight: "400" }], "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.04em", fontWeight: "700" }], "headline-md": ["20px", { lineHeight: "28px", letterSpacing: "-0.01em", fontWeight: "700" }], "headline-lg": ["24px", { lineHeight: "32px", letterSpacing: "-0.015em", fontWeight: "700" }], "headline-xl": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "800" }] } } } };</script><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-body-md text-on-surface min-h-screen flex flex-col selection:bg-primary-fixed"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0 flex-1"><img alt="Chalo Transit Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1UTwveEGMrJfoVqhODVy6I_6UfucAb5aFjb8A_9COZx5DfjyuU3pb4kD6OdVG2dgnqBK4hpuPd9Fh_RguPcnf3PpS58fiu3N89M9y-wskDEbmsNcKrwvXKHvLDqeCV03TxtM8hgDi_SAKpAL4MOEcnaQA8FKihA9Fxg-2UfP_5tlIMxWDclnR1ZIdmaWFsnshvg49RBIxi028BpWxMjfpMzaevpKuNhc3RFnQgA6O7cLa26D_jCkcW4bzCq"/><span class="font-headline-md text-headline-md text-on-surface truncate">Chalo</span><span class="hidden">Radar</span></div><div class="flex items-center justify-center"><div class="inline-flex items-center gap-space-xs bg-surface-container-high px-space-md py-1 rounded-full shadow-[0_1px_4px_rgba(0,0,0,0.04)]"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-container opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-primary-container"></span></span><span class="font-label-sm text-label-sm text-primary font-bold uppercase tracking-wider">LHE LIVE</span></div></div><div class="flex items-center justify-end flex-1"><button aria-label="Account" class="w-11 h-11 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSEmcGYbzicgBEIDsHd_XAych8OSUkm5rhtIoS4iTeWfY6vxLcVyV_G06-5wTyymexwjclQnmMoONz2r9DeCPoHsiBmn5Sus9iwWZW9C2KwvOeQxagHIg_SMIe4RiHYmt2C4K5RssPkynqDeFFSWhWwtHUS8FdWF6GniMfhWx0LX98RblK7Fyhh6kt1g_s9_QOqXEYorCmwR9B1icc6vI7EePRasJufdKzTJcXQhVviAxkNqWaCThUEQ"/></button></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-24 bg-surface"><div class="flex flex-col w-full bg-[#ffffff] text-[#000000] px-margin pb-6 gap-space-md select-none">
+<!-- Sunlight Glare Sensor Banner -->
+<aside aria-label="Sunlight Glare Sensor Status" class="w-full bg-[#ffffff] border-[2.5px] border-[#000000] rounded-lg p-space-sm flex items-center justify-between shadow-none">
+<div class="flex items-center gap-space-xs min-w-0">
+<span class="material-symbols-outlined text-[#000000] text-xl flex-shrink-0" style="font-variation-settings: 'FILL' 1;">wb_sunny</span>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-extrabold text-[#000000] truncate">SUNLIGHT GLARE MODE ACTIVE</span>
+<span class="font-body-sm text-body-sm text-[#000000] font-bold">52,400 LUX (EXTREME NOON)</span>
+</div>
+</div>
+<button aria-pressed="true" class="bg-[#000000] text-[#ffffff] px-space-sm py-1 rounded-DEFAULT border-[2px] border-[#000000] font-label-sm text-label-sm font-extrabold uppercase tracking-wide flex-shrink-0 active:bg-[#ffffff] active:text-[#000000] transition-none" id="toggle-contrast" type="button">
+      MAX BOLD
+    </button>
+</aside>
+<!-- High-Contrast Navigation Segment Tabs -->
+<nav aria-label="View Switcher" class="w-full grid grid-cols-2 gap-space-xs bg-[#ffffff] p-1 border-[2.5px] border-[#000000] rounded-lg">
+<button class="w-full py-space-sm px-1 bg-[#000000] text-[#ffffff] border-[2px] border-[#000000] rounded-DEFAULT font-label-md text-label-md font-extrabold uppercase tracking-wide text-center flex items-center justify-center gap-1.5 focus:outline-none" id="tab-radar" onclick="switchView('radar')" type="button">
+<span class="w-2.5 h-2.5 rounded-full bg-[#ffffff] inline-block animate-pulse"></span>
+      LIVE RADAR
+    </button>
+<button class="w-full py-space-sm px-1 bg-[#ffffff] text-[#000000] border-[2px] border-transparent rounded-DEFAULT font-label-md text-label-md font-extrabold uppercase tracking-wide text-center flex items-center justify-center gap-1.5 focus:outline-none" id="tab-pass" onclick="switchView('pass')" type="button">
+<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">qr_code_scanner</span>
+      QR PASS
+    </button>
+</nav>
+<!-- VIEW 1: LIVE RADAR PANEL -->
+<section class="flex flex-col w-full gap-space-md" id="panel-radar">
+<!-- Active Speedo Transit Glare Card -->
+<article class="w-full bg-[#ffffff] border-[2.5px] border-[#000000] rounded-xl p-space-md flex flex-col gap-space-md">
+<!-- Header row with solid identification badges -->
+<div class="flex items-center justify-between gap-space-sm">
+<div class="inline-flex items-center gap-space-xs bg-[#000000] text-[#ffffff] px-space-sm py-1 rounded-DEFAULT border-[2px] border-[#000000]">
+<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">directions_bus</span>
+<span class="font-label-md text-label-md font-extrabold tracking-wider">BUS SP-104</span>
+</div>
+<span class="bg-[#ffffff] text-[#000000] font-label-sm text-label-sm font-extrabold px-space-xs py-0.5 border-[2px] border-[#000000] rounded-DEFAULT uppercase">
+          SPEEDO FEEDER
+        </span>
+</div>
+<!-- Station Arrival & Terminal Waypoint -->
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-[#000000] font-extrabold uppercase tracking-widest">NEXT APPROACHING STOP</span>
+<h2 class="font-headline-lg text-headline-lg font-extrabold text-[#000000] tracking-tight mt-0.5 uppercase">
+          LIBERTY MARKET
+        </h2>
+<p class="font-body-md text-body-md text-[#000000] font-bold">Platform 2 • Via Main Boulevard Gulberg</p>
+</div>
+<!-- High-Glanceability Countdown Block -->
+<div class="grid grid-cols-2 gap-space-sm w-full">
+<div class="bg-[#ffffff] border-[2.5px] border-[#000000] p-space-sm rounded-lg flex flex-col items-center justify-center text-center">
+<span class="font-label-sm text-label-sm font-extrabold text-[#000000] uppercase tracking-wider">ARRIVAL ETA</span>
+<span class="font-transit-countdown text-transit-countdown font-extrabold text-[#1b5e20] leading-none my-1 tracking-tighter">03 MIN</span>
+<span class="font-label-sm text-label-sm font-black text-[#000000] bg-[#ffffff] border-[1.5px] border-[#000000] px-1.5 py-0.5 rounded-DEFAULT">
+            ON SCHEDULE
+          </span>
+</div>
+<div class="bg-[#ffffff] border-[2.5px] border-[#000000] p-space-sm rounded-lg flex flex-col items-center justify-center text-center">
+<span class="font-label-sm text-label-sm font-extrabold text-[#000000] uppercase tracking-wider">CORRIDOR FARE</span>
+<span class="font-transit-countdown text-transit-countdown font-extrabold text-[#000000] leading-none my-1">RS. 0</span>
+<span class="font-label-sm text-label-sm font-black text-[#ffffff] bg-[#000000] px-1.5 py-0.5 rounded-DEFAULT uppercase">
+            STUDENT PASS
+          </span>
+</div>
+</div>
+<!-- Segmented High-Contrast Linear Route Progress -->
+<div class="w-full flex flex-col gap-1.5 pt-space-xs">
+<div class="flex justify-between items-center text-[#000000] font-label-sm text-label-sm font-extrabold uppercase">
+<span>Kalma Chowk</span>
+<span class="bg-[#000000] text-[#ffffff] px-1 py-0.5 rounded-DEFAULT font-black">2 STOPS AWAY</span>
+<span>Siddiq Trade Ctr</span>
+</div>
+<!-- Segmented Solid Bar -->
+<div class="w-full h-5 bg-[#ffffff] border-[2.5px] border-[#000000] rounded-DEFAULT p-0.5 flex gap-1">
+<div class="h-full bg-[#000000] flex-1"></div>
+<div class="h-full bg-[#000000] flex-1"></div>
+<div class="h-full bg-[#000000] flex-1 relative flex items-center justify-center">
+<span class="w-2 h-2 rounded-full bg-[#ffffff]"></span>
+</div>
+<div class="h-full bg-[#ffffff] border-l-[2px] border-[#000000] flex-1"></div>
+<div class="h-full bg-[#ffffff] border-l-[2px] border-[#000000] flex-1"></div>
+</div>
+</div>
+</article>
+<!-- Corridor Telemetry & Crowd Density Warnings -->
+<div class="w-full grid grid-cols-2 gap-space-sm">
+<div class="bg-[#ffffff] border-[2.5px] border-[#000000] rounded-lg p-space-sm flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[#000000] text-2xl font-black">groups</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm font-extrabold uppercase text-[#000000]">BUS OCCUPANCY</span>
+<span class="font-headline-sm text-headline-sm font-extrabold text-[#b45309] leading-tight">SEATS FULL</span>
+</div>
+</div>
+<div class="bg-[#ffffff] border-[2.5px] border-[#000000] rounded-lg p-space-sm flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[#000000] text-2xl font-black">ac_unit</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm font-extrabold uppercase text-[#000000]">CABIN CLIMATE</span>
+<span class="font-headline-sm text-headline-sm font-extrabold text-[#1b5e20] leading-tight">22°C CHILLED</span>
+</div>
+</div>
+</div>
+<!-- Sunlight High-Visibility Map Reference Anchor -->
+<div class="relative w-full h-36 bg-[#ffffff] border-[2.5px] border-[#000000] rounded-xl overflow-hidden flex flex-col justify-between p-space-sm" data-location="Gulberg, Lahore, Pakistan" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAURSMuttjUP46XDbwFoFUeMzOw2jzjN9IqA66kzvfdkGx3u6R2Im9CCs4f7Pbi1NnL7LayNk3mvsZHNmKvyVRWJLNOhzEpxt5eRRIj0JaK1PRTVSDB-nd9f7EcRNAS1PwVZlDTk8JlD1bmF2vQUyTzaSDTGG915wagug7jfjTJv7dqEu1g4it4yrnuZXIEcMGFXo-bWqPj0S-Q4Ia0JMCGtVoS205iuB6K95dVGhqADjp3jS-4UYDdvg')">
+<div class="self-start bg-[#000000] text-[#ffffff] border-[2px] border-[#000000] px-2 py-0.5 rounded-DEFAULT font-label-sm text-label-sm font-extrabold tracking-wider uppercase">
+        GPS SATELLITE: LOCKED (±1.4M)
+      </div>
+<div class="self-end bg-[#ffffff] text-[#000000] border-[2.5px] border-[#000000] px-space-sm py-1 rounded-DEFAULT font-label-md text-label-md font-extrabold uppercase flex items-center gap-1">
+<span class="material-symbols-outlined text-sm font-black">my_location</span>
+        GULBERG CORRIDOR
+      </div>
+</div>
+</section>
+<!-- VIEW 2: HIGH-CONTRAST QR BOARDING PASS (Visible by Tab or Toggle) -->
+<section class="flex flex-col w-full gap-space-md hidden" id="panel-pass">
+<article class="w-full bg-[#ffffff] border-[3px] border-[#000000] rounded-xl p-space-md flex flex-col items-center text-center gap-space-sm">
+<!-- Pass Tier Badges -->
+<div class="w-full flex items-center justify-between pb-space-xs border-b-[2.5px] border-[#000000]">
+<span class="bg-[#000000] text-[#ffffff] px-2 py-0.5 font-label-sm text-label-sm font-extrabold uppercase tracking-wider rounded-DEFAULT">
+          PMA LAHORE PASS
+        </span>
+<span class="bg-[#ffffff] text-[#000000] border-[2px] border-[#000000] px-2 py-0.5 font-label-sm text-label-sm font-extrabold uppercase rounded-DEFAULT">
+          STUDENT ZERO-FARE
+        </span>
+</div>
+<div class="flex flex-col items-center">
+<h3 class="font-headline-md text-headline-md font-extrabold text-[#000000] tracking-tight uppercase">
+          MUHAMMAD HAMZA
+        </h3>
+<span class="font-body-sm text-body-sm font-black text-[#000000] tracking-wider">CNIC / REG: 35201-****891-3</span>
+</div>
+<!-- Precision Razor-Sharp High-Density Optical QR Display -->
+<div class="w-56 h-56 bg-[#ffffff] border-[3px] border-[#000000] p-3 rounded-lg flex items-center justify-center my-1 relative">
+<svg aria-label="Valid High-Contrast Boarding QR Code" class="w-full h-full text-[#000000]" fill="currentColor" shape-rendering="crispEdges" viewbox="0 0 100 100">
+<!-- Position Corners Left-Top -->
+<rect height="28" width="28" x="0" y="0"></rect>
+<rect fill="#ffffff" height="20" width="20" x="4" y="4"></rect>
+<rect height="12" width="12" x="8" y="8"></rect>
+<!-- Position Corners Right-Top -->
+<rect height="28" width="28" x="72" y="0"></rect>
+<rect fill="#ffffff" height="20" width="20" x="76" y="4"></rect>
+<rect height="12" width="12" x="80" y="8"></rect>
+<!-- Position Corners Left-Bottom -->
+<rect height="28" width="28" x="0" y="72"></rect>
+<rect fill="#ffffff" height="20" width="20" x="4" y="76"></rect>
+<rect height="12" width="12" x="8" y="80"></rect>
+<!-- Timing Lines -->
+<rect height="4" width="4" x="32" y="10"></rect>
+<rect height="4" width="4" x="40" y="10"></rect>
+<rect height="4" width="4" x="48" y="10"></rect>
+<rect height="4" width="4" x="56" y="10"></rect>
+<rect height="4" width="4" x="64" y="10"></rect>
+<rect height="4" width="4" x="10" y="32"></rect>
+<rect height="4" width="4" x="10" y="40"></rect>
+<rect height="4" width="4" x="10" y="48"></rect>
+<rect height="4" width="4" x="10" y="56"></rect>
+<rect height="4" width="4" x="10" y="64"></rect>
+<!-- Internal Hash High Contrast Matrix Payload -->
+<rect height="8" width="8" x="32" y="32"></rect>
+<rect height="4" width="12" x="44" y="32"></rect>
+<rect height="8" width="4" x="60" y="32"></rect>
+<rect height="4" width="16" x="36" y="44"></rect>
+<rect height="8" width="8" x="44" y="52"></rect>
+<rect height="16" width="8" x="56" y="44"></rect>
+<rect height="8" width="8" x="32" y="64"></rect>
+<rect height="4" width="4" x="44" y="64"></rect>
+<rect height="4" width="12" x="52" y="68"></rect>
+<rect height="12" width="4" x="68" y="60"></rect>
+<rect height="4" width="8" x="76" y="36"></rect>
+<rect height="8" width="8" x="88" y="44"></rect>
+<rect height="12" width="4" x="76" y="56"></rect>
+<rect height="8" width="8" x="84" y="72"></rect>
+<rect height="8" width="8" x="36" y="76"></rect>
+<rect height="4" width="16" x="48" y="80"></rect>
+<rect height="8" width="4" x="68" y="80"></rect>
+</svg>
+<!-- Center Optical Target Node -->
+<div class="absolute w-8 h-8 bg-[#ffffff] border-[2px] border-[#000000] flex items-center justify-center">
+<span class="material-symbols-outlined text-[#000000] text-sm font-black">directions_transit</span>
+</div>
+</div>
+<!-- Rolling Token Refresh Mechanism -->
+<div class="w-full bg-[#ffffff] border-[2.5px] border-[#000000] rounded-lg p-space-sm flex items-center justify-between">
+<div class="flex flex-col text-left">
+<span class="font-label-sm text-label-sm font-extrabold uppercase text-[#000000]">TOKEN AUTO-REFRESH</span>
+<span class="font-headline-sm text-headline-sm font-black text-[#b91c1c] tracking-tight">
+            VALID: <span class="tabular-nums" id="token-seconds">24</span> SECONDS
+          </span>
+</div>
+<button aria-label="Refresh Security Token" class="w-10 h-10 bg-[#000000] text-[#ffffff] rounded-DEFAULT border-[2px] border-[#000000] flex items-center justify-center active:bg-[#ffffff] active:text-[#000000] focus:outline-none" onclick="refreshToken()" type="button">
+<span class="material-symbols-outlined text-xl font-bold" id="refresh-icon">sync</span>
+</button>
+</div>
+<!-- Turnstile Scan Guidance -->
+<div class="w-full flex items-center gap-2 justify-center py-1">
+<span class="material-symbols-outlined text-[#000000] text-base font-black">sensors</span>
+<span class="font-label-sm text-label-sm font-extrabold text-[#000000] uppercase tracking-wider">
+          ALIGN SCANNER 4-6 INCHES OVER GLASS
+        </span>
+</div>
+</article>
+</section>
+<!-- High-Tactile Primary Turnstile Action Anchor -->
+<div class="w-full mt-space-xs">
+<button class="w-full h-14 bg-[#000000] text-[#ffffff] border-[3px] border-[#000000] rounded-xl flex items-center justify-center gap-space-sm font-label-lg text-label-lg font-black uppercase tracking-wider active:bg-[#ffffff] active:text-[#000000] active:scale-[0.99] transition-none focus:outline-none" onclick="triggerScanHaptic(this)" type="button">
+<span class="material-symbols-outlined text-2xl font-bold" style="font-variation-settings: 'FILL' 1;">contactless</span>
+      TAP TO SCAN AT TURNSTILE
+    </button>
+</div>
+<!-- Auxiliary Extreme-Sun Alert Warning -->
+<div class="w-full bg-[#ffffff] border-[2.5px] border-[#000000] rounded-lg p-space-sm flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-[#b91c1c] text-xl font-black flex-shrink-0">warning</span>
+<p class="font-body-sm text-body-sm text-[#000000] font-extrabold leading-snug">
+      SCREEN MAX BRIGHTNESS FORCED. If camera scanners struggle with glare, tilt screen 15° away from direct overhead sun.
+    </p>
+</div>
+</div>
+<script>
+  // Tab Switching Logic
+  function switchView(target) {
+    const radarTab = document.getElementById('tab-radar');
+    const passTab = document.getElementById('tab-pass');
+    const radarPanel = document.getElementById('panel-radar');
+    const passPanel = document.getElementById('panel-pass');
+
+    if (target === 'radar') {
+      radarTab.classList.remove('bg-[#ffffff]', 'text-[#000000]', 'border-transparent');
+      radarTab.classList.add('bg-[#000000]', 'text-[#ffffff]', 'border-[#000000]');
+      
+      passTab.classList.remove('bg-[#000000]', 'text-[#ffffff]', 'border-[#000000]');
+      passTab.classList.add('bg-[#ffffff]', 'text-[#000000]', 'border-transparent');
+
+      radarPanel.classList.remove('hidden');
+      passPanel.classList.add('hidden');
+    } else {
+      passTab.classList.remove('bg-[#ffffff]', 'text-[#000000]', 'border-transparent');
+      passTab.classList.add('bg-[#000000]', 'text-[#ffffff]', 'border-[#000000]');
+
+      radarTab.classList.remove('bg-[#000000]', 'text-[#ffffff]', 'border-[#000000]');
+      radarTab.classList.add('bg-[#ffffff]', 'text-[#000000]', 'border-transparent');
+
+      passPanel.classList.remove('hidden');
+      radarPanel.classList.add('hidden');
+    }
+  }
+
+  // Token Countdown Simulation
+  let countdownSec = 24;
+  const tokenLabel = document.getElementById('token-seconds');
+
+  setInterval(function() {
+    if (countdownSec > 1) {
+      countdownSec--;
+      if (tokenLabel) tokenLabel.innerText = (countdownSec < 10 ? '0' : '') + countdownSec;
+    } else {
+      countdownSec = 30;
+      if (tokenLabel) tokenLabel.innerText = '30';
+    }
+  }, 1000);
+
+  function refreshToken() {
+    countdownSec = 30;
+    if (tokenLabel) tokenLabel.innerText = '30';
+    const icon = document.getElementById('refresh-icon');
+    if (icon) {
+      icon.classList.add('rotate-180');
+      setTimeout(() => icon.classList.remove('rotate-180'), 250);
+    }
+  }
+
+  function triggerScanHaptic(btn) {
+    if (navigator.vibrate) {
+      navigator.vibrate([40, 30, 40]);
+    }
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<span class="material-symbols-outlined text-2xl font-bold">check_circle</span> READY FOR TURNSTILE TAP';
+    setTimeout(() => {
+      btn.innerHTML = originalText;
+    }, 1800);
+  }
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/85 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.05)]" data-active-classes="text-primary-container font-label-md"><div class="flex justify-around items-center h-16 px-space-sm"><a aria-current="page" class="flex-1 flex flex-col items-center justify-center py-space-xs min-h-[44px] transition-colors text-primary-container font-label-md" data-path="radar" href="#"><span class="material-symbols-outlined text-2xl">radar</span><span class="font-label-sm text-label-sm mt-0.5">Radar</span></a><a class="flex-1 flex flex-col items-center justify-center py-space-xs min-h-[44px] text-on-surface-variant hover:text-primary-container transition-colors" data-path="plan" href="#"><span class="material-symbols-outlined text-2xl">route</span><span class="font-label-sm text-label-sm mt-0.5">Plan</span></a><a class="flex-1 flex flex-col items-center justify-center py-space-xs min-h-[44px] text-on-surface-variant hover:text-primary-container transition-colors" data-path="pass" href="#"><span class="material-symbols-outlined text-2xl">qr_code_2</span><span class="font-label-sm text-label-sm mt-0.5">Pass</span></a><a class="flex-1 flex flex-col items-center justify-center py-space-xs min-h-[44px] text-on-surface-variant hover:text-primary-container transition-colors" data-path="profile" href="#"><span class="material-symbols-outlined text-2xl">account_circle</span><span class="font-label-sm text-label-sm mt-0.5">Profile</span></a></div></nav></body></html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface": "#f8f9ff", "surface-tint": "#266c20", "on-primary-fixed-variant": "#055307", "tertiary-fixed-dim": "#ffb786", "secondary-fixed-dim": "#a5c8ff", "on-primary-fixed": "#002201", "tertiary-container": "#b45900", "tertiary-fixed": "#ffdcc6", "surface-container-low": "#eff4ff", "secondary": "#005faf", "on-tertiary": "#ffffff", "outline": "#717a6b", "primary-container": "#3b8132", "inverse-primary": "#8ed97e", "primary": "#20671b", "on-tertiary-fixed-variant": "#723600", "outline-variant": "#c0c9b9", "on-secondary": "#ffffff", "on-background": "#0b1c30", "on-primary-container": "#eaffdf", "on-primary": "#ffffff", "on-surface-variant": "#41493d", "on-secondary-container": "#003567", "secondary-fixed": "#d4e3ff", "surface-variant": "#d3e4fe", "on-error-container": "#93000a", "primary-fixed-dim": "#8ed97e", "background": "#f8f9ff", "primary-fixed": "#a9f697", "surface-container": "#e5eeff", "secondary-container": "#54a0fe", "error-container": "#ffdad6", "on-tertiary-container": "#fff7f4", "surface-bright": "#f8f9ff", "on-error": "#ffffff", "inverse-surface": "#213145", "on-secondary-fixed": "#001c3a", "error": "#ba1a1a", "on-secondary-fixed-variant": "#004786", "surface-container-highest": "#d3e4fe", "surface-container-high": "#dce9ff", "surface-dim": "#cbdbf5", "tertiary": "#8f4600", "on-tertiary-fixed": "#311300", "inverse-on-surface": "#eaf1ff", "on-surface": "#0b1c30", "surface-container-lowest": "#ffffff" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-sm": "0.5rem", "margin": "1rem", "gutter": "0.75rem", "space-md": "0.75rem", "space-xs": "0.25rem", "space-lg": "1rem", "space-xl": "1.5rem" }, fontFamily: { "body-md": ["Plus Jakarta Sans"], "transit-countdown": ["Plus Jakarta Sans"], "label-lg": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "headline-xl": ["Plus Jakarta Sans"] }, fontSize: { "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }], "transit-countdown": ["28px", { lineHeight: "32px", letterSpacing: "-0.03em", fontWeight: "800" }], "label-lg": ["14px", { lineHeight: "18px", letterSpacing: "0.02em", fontWeight: "700" }], "label-sm": ["10px", { lineHeight: "12px", letterSpacing: "0.06em", fontWeight: "800" }], "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "600" }], "body-lg": ["16px", { lineHeight: "24px", fontWeight: "500" }], "body-sm": ["12px", { lineHeight: "16px", fontWeight: "400" }], "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.04em", fontWeight: "700" }], "headline-md": ["20px", { lineHeight: "28px", letterSpacing: "-0.01em", fontWeight: "700" }], "headline-lg": ["24px", { lineHeight: "32px", letterSpacing: "-0.015em", fontWeight: "700" }], "headline-xl": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "800" }] } } } };</script><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-body-md text-on-surface min-h-screen flex flex-col selection:bg-primary-fixed"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0 flex-1"><img alt="Chalo Transit Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1UTwveEGMrJfoVqhODVy6I_6UfucAb5aFjb8A_9COZx5DfjyuU3pb4kD6OdVG2dgnqBK4hpuPd9Fh_RguPcnf3PpS58fiu3N89M9y-wskDEbmsNcKrwvXKHvLDqeCV03TxtM8hgDi_SAKpAL4MOEcnaQA8FKihA9Fxg-2UfP_5tlIMxWDclnR1ZIdmaWFsnshvg49RBIxi028BpWxMjfpMzaevpKuNhc3RFnQgA6O7cLa26D_jCkcW4bzCq"/><span class="font-headline-md text-headline-md text-on-surface truncate">Chalo</span><span class="hidden">Pass</span></div><div class="flex items-center justify-center"><div class="inline-flex items-center gap-space-xs bg-surface-container-high px-space-md py-1 rounded-full shadow-[0_1px_4px_rgba(0,0,0,0.04)]"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-container opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-primary-container"></span></span><span class="font-label-sm text-label-sm text-primary font-bold uppercase tracking-wider">LHE LIVE</span></div></div><div class="flex items-center justify-end flex-1"><button aria-label="Account" class="w-11 h-11 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSEmcGYbzicgBEIDsHd_XAych8OSUkm5rhtIoS4iTeWfY6vxLcVyV_G06-5wTyymexwjclQnmMoONz2r9DeCPoHsiBmn5Sus9iwWZW9C2KwvOeQxagHIg_SMIe4RiHYmt2C4K5RssPkynqDeFFSWhWwtHUS8FdWF6GniMfhWx0LX98RblK7Fyhh6kt1g_s9_QOqXEYorCmwR9B1icc6vI7EePRasJufdKzTJcXQhVviAxkNqWaCThUEQ"/></button></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-24 bg-surface"><div class="flex flex-col w-full">
+<div class="px-margin pt-space-md pb-space-lg flex flex-col gap-space-lg">
+<!-- Top Action / Title Bar -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+<h1 class="font-headline-md text-headline-md text-on-surface">Transit Wallet &amp; Pass</h1>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-high px-space-sm py-1 rounded-full text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-sm text-primary">verified_user</span>
+<span>Biometric Active</span>
+</div>
+</div>
+<!-- Top Balance Card (Deep Emerald with watermark noodles) -->
+<div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-primary via-primary-container to-[#174e14] text-on-primary p-space-lg shadow-lg flex flex-col justify-between min-h-[174px]">
+<!-- Background Transit Line Watermark SVG -->
+<svg class="absolute -right-8 -bottom-10 w-52 h-52 text-white/10 pointer-events-none" fill="none" viewbox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+<path d="M10 180 C 60 180, 70 80, 130 80 C 170 80, 180 30, 200 10" stroke="currentColor" stroke-linecap="round" stroke-width="22"></path>
+<path d="M40 195 C 80 195, 100 120, 150 120 C 180 120, 190 70, 205 50" stroke="currentColor" stroke-linecap="round" stroke-width="12"></path>
+<circle cx="130" cy="80" fill="currentColor" r="10"></circle>
+<circle cx="70" cy="130" fill="currentColor" r="8"></circle>
+</svg>
+<div class="relative z-10 flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm tracking-wider uppercase text-on-primary-container/90 flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-primary-fixed"></span>
+            Chalo Cash Card
+          </span>
+<span class="font-label-sm text-label-sm bg-black/25 backdrop-blur-md px-2 py-0.5 rounded-full text-white/90">
+            NFC Ready
+          </span>
+</div>
+<div class="mt-1">
+<div class="font-transit-countdown text-transit-countdown tracking-tight text-white flex items-baseline gap-1">
+<span>PKR 250.00</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-primary-container flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-xs">school</span>
+            Student Zero-Fare Active • Punjab Education Dept.
+          </p>
+</div>
+</div>
+<div class="relative z-10 flex items-center justify-between gap-space-sm pt-space-md">
+<button class="flex-1 bg-surface-container-lowest text-primary font-label-md text-label-md py-2.5 px-space-md rounded-full shadow-md flex items-center justify-center gap-1.5 active:scale-95 transition-transform" type="button">
+<span class="material-symbols-outlined text-base font-bold">add_circle</span>
+<span>+ Top Up Balance</span>
+</button>
+<button class="flex items-center gap-1.5 bg-black/20 hover:bg-black/30 backdrop-blur-sm text-white font-label-sm text-label-sm py-2.5 px-space-md rounded-full transition-colors" type="button">
+<span class="material-symbols-outlined text-sm text-[#ffb786]">bolt</span>
+<span>JazzCash: ON</span>
+</button>
+</div>
+</div>
+<!-- Centerpiece Boarding Ticket Pass -->
+<div class="relative bg-surface-container-lowest rounded-xl shadow-xl overflow-hidden">
+<!-- Top Perforated Decorative Notches -->
+<div class="absolute -left-3 top-32 w-6 h-6 bg-surface rounded-full z-20 pointer-events-none"></div>
+<div class="absolute -right-3 top-32 w-6 h-6 bg-surface rounded-full z-20 pointer-events-none"></div>
+<!-- Ticket Header Banner -->
+<div class="bg-[#8E24AA] text-white px-space-lg py-2.5 flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="text-base leading-none">🎓</span>
+<span class="font-label-md text-label-md tracking-wider uppercase font-bold">Student Zero-Fare Pass</span>
+</div>
+<div class="flex items-center gap-1 bg-white/20 px-2 py-0.5 rounded-full text-xs font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-sm text-white">verified</span>
+<span>Verified</span>
+</div>
+</div>
+<!-- Passenger Row -->
+<div class="px-space-lg pt-space-md pb-space-sm flex items-center justify-between bg-surface-container-low/70">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-[#8E24AA]/10 text-[#8E24AA] flex items-center justify-center font-bold text-sm">
+            AK
+          </div>
+<div>
+<div class="font-headline-sm text-headline-sm text-on-surface leading-tight">Ayesha Khan</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant font-mono">PU-2024-CS-41 • Univ of the Punjab</div>
+</div>
+</div>
+<span class="font-label-sm text-label-sm bg-primary/10 text-primary px-2 py-1 rounded-full font-bold uppercase">
+          Daily Pass
+        </span>
+</div>
+<!-- Perforation Divider line -->
+<div class="relative py-2 flex items-center justify-center">
+<div class="w-full border-t border-dashed border-outline-variant/60"></div>
+</div>
+<!-- QR Display Section -->
+<div class="p-space-lg flex flex-col items-center">
+<!-- Live Rotating Anti-Fraud Ring Container -->
+<div class="relative p-3 rounded-2xl bg-gradient-to-br from-primary/15 via-secondary/15 to-[#8E24AA]/20 shadow-inner flex items-center justify-center">
+<!-- Animated Ring SVG -->
+<svg class="absolute inset-0 w-full h-full -rotate-90 pointer-events-none" viewbox="0 0 240 240">
+<circle cx="120" cy="120" fill="none" r="110" stroke="#dce9ff" stroke-width="4"></circle>
+<circle class="transition-all duration-1000 ease-linear" cx="120" cy="120" fill="none" id="qr-progress-ring" r="110" stroke="#20671b" stroke-dasharray="691" stroke-dashoffset="138" stroke-linecap="round" stroke-width="5"></circle>
+</svg>
+<!-- The High Contrast QR Code -->
+<div class="relative bg-white p-3 rounded-xl shadow-md flex items-center justify-center">
+<svg class="w-48 h-48 sm:w-52 sm:h-52" fill="none" viewbox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+<!-- QR Finder Patterns: Top Left -->
+<rect fill="#0b1c30" height="40" rx="6" width="40" x="10" y="10"></rect>
+<rect fill="#ffffff" height="24" rx="3" width="24" x="18" y="18"></rect>
+<rect fill="#0b1c30" height="12" rx="2" width="12" x="24" y="24"></rect>
+<!-- Top Right -->
+<rect fill="#0b1c30" height="40" rx="6" width="40" x="110" y="10"></rect>
+<rect fill="#ffffff" height="24" rx="3" width="24" x="118" y="18"></rect>
+<rect fill="#0b1c30" height="12" rx="2" width="12" x="124" y="24"></rect>
+<!-- Bottom Left -->
+<rect fill="#0b1c30" height="40" rx="6" width="40" x="10" y="110"></rect>
+<rect fill="#ffffff" height="24" rx="3" width="24" x="18" y="118"></rect>
+<rect fill="#0b1c30" height="12" rx="2" width="12" x="24" y="124"></rect>
+<!-- High density data modules -->
+<g fill="#0b1c30">
+<rect height="6" rx="1.5" width="6" x="60" y="12"></rect>
+<rect height="6" rx="1.5" width="12" x="70" y="12"></rect>
+<rect height="6" rx="1.5" width="6" x="90" y="12"></rect>
+<rect height="6" rx="1.5" width="18" x="60" y="24"></rect>
+<rect height="6" rx="1.5" width="14" x="84" y="24"></rect>
+<rect height="6" rx="1.5" width="8" x="60" y="36"></rect>
+<rect height="6" rx="1.5" width="6" x="74" y="36"></rect>
+<rect height="6" rx="1.5" width="12" x="88" y="36"></rect>
+<rect height="12" rx="1.5" width="6" x="12" y="60"></rect>
+<rect height="6" rx="1.5" width="14" x="24" y="60"></rect>
+<rect height="6" rx="1.5" width="6" x="44" y="60"></rect>
+<rect height="6" rx="1.5" width="18" x="12" y="78"></rect>
+<rect height="6" rx="1.5" width="14" x="36" y="78"></rect>
+<rect height="10" rx="1.5" width="6" x="12" y="90"></rect>
+<rect height="6" rx="1.5" width="12" x="24" y="90"></rect>
+<rect height="6" rx="1.5" width="8" x="42" y="90"></rect>
+<!-- Center right & bottom right data -->
+<rect height="6" rx="1.5" width="12" x="110" y="60"></rect>
+<rect height="6" rx="1.5" width="18" x="128" y="60"></rect>
+<rect height="12" rx="1.5" width="6" x="110" y="72"></rect>
+<rect height="6" rx="1.5" width="16" x="122" y="72"></rect>
+<rect height="6" rx="1.5" width="18" x="110" y="90"></rect>
+<rect height="6" rx="1.5" width="12" x="134" y="90"></rect>
+<rect height="12" rx="1.5" width="6" x="60" y="110"></rect>
+<rect height="6" rx="1.5" width="18" x="72" y="110"></rect>
+<rect height="6" rx="1.5" width="10" x="96" y="110"></rect>
+<rect height="6" rx="1.5" width="12" x="60" y="128"></rect>
+<rect height="12" rx="1.5" width="6" x="78" y="128"></rect>
+<rect height="6" rx="1.5" width="16" x="90" y="128"></rect>
+<rect height="6" rx="1.5" width="14" x="110" y="110"></rect>
+<rect height="6" rx="1.5" width="16" x="130" y="110"></rect>
+<rect height="6" rx="1.5" width="8" x="110" y="122"></rect>
+<rect height="6" rx="1.5" width="12" x="124" y="122"></rect>
+<rect height="14" rx="1.5" width="6" x="142" y="122"></rect>
+<rect height="6" rx="1.5" width="22" x="110" y="134"></rect>
+<rect height="6" rx="1.5" width="8" x="138" y="140"></rect>
+</g>
+<!-- Central Emblem Badge -->
+<rect fill="#20671b" height="32" rx="8" width="32" x="64" y="64"></rect>
+<rect fill="#ffffff" height="26" rx="6" width="26" x="67" y="67"></rect>
+<g transform="translate(71, 71)">
+<!-- Metro train mini icon -->
+<path d="M3 2C3 0.9 3.9 0 5 0H13C14.1 0 15 0.9 15 2V12C15 13.1 14.1 14 13 14L15 16V17H3V16L5 14C3.9 14 3 13.1 3 12V2ZM5 2V6H13V2H5ZM5 8V12H13V8H5ZM6 10C6.55 10 7 9.55 7 9C7 8.45 6.55 8 6 8C5.45 8 5 8.45 5 9C5 9.55 5.45 10 6 10ZM12 10C12.55 10 13 9.55 13 9C13 8.45 12.55 8 12 8C11.45 8 11 8.45 11 9C11 9.55 11.45 10 12 10Z" fill="#20671b"></path>
+</g>
+</svg>
+</div>
+</div>
+<!-- Dynamic Security Timer & Token Refresher -->
+<div class="mt-space-md flex flex-col items-center gap-1">
+<div class="flex items-center gap-2">
+<span class="relative flex h-2.5 w-2.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
+</span>
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface tracking-tight" id="countdown-text">Refreshes in 24s</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-primary">security</span>
+            Dynamic screenshot-prevention active
+          </p>
+<button class="mt-1 inline-flex items-center gap-1.5 text-primary hover:text-primary-container font-label-md text-label-md py-1 px-3 rounded-full hover:bg-surface-container transition-colors" id="refresh-qr-btn" type="button">
+<span class="material-symbols-outlined text-sm transition-transform" id="refresh-icon">autorenew</span>
+<span>Tap to refresh QR token</span>
+</button>
+</div>
+<!-- Turnstile Instruction Pill -->
+<div class="mt-space-md w-full bg-surface-container-high/60 rounded-xl p-space-sm flex items-start gap-2.5">
+<span class="material-symbols-outlined text-secondary text-lg mt-0.5">sensors</span>
+<div class="min-w-0 flex-1">
+<p class="font-label-sm text-label-sm text-on-surface font-semibold leading-snug">
+              Hold within 5cm of Metrobus optical turnstile, Orange Line gate, or Speedo validator.
+            </p>
+</div>
+</div>
+<!-- Valid Network Pills -->
+<div class="mt-space-md w-full flex items-center justify-between gap-1.5 pt-space-xs border-t border-dashed border-outline-variant/40">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-bold uppercase tracking-wider">Valid on:</span>
+<div class="flex items-center gap-1.5">
+<span class="bg-[#E53935] text-white font-label-sm text-label-sm px-2 py-0.5 rounded font-bold tracking-tight">Metrobus</span>
+<span class="bg-[#F57C00] text-white font-label-sm text-label-sm px-2 py-0.5 rounded font-bold tracking-tight">Orange Line</span>
+<span class="bg-[#1976D2] text-white font-label-sm text-label-sm px-2 py-0.5 rounded font-bold tracking-tight">Speedo</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Transit Transactions Section -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Recent Activity</h2>
+<a class="font-label-md text-label-md text-primary font-bold hover:underline" href="#">View All</a>
+</div>
+<!-- Activity Items Stack -->
+<div class="flex flex-col gap-2">
+<!-- Transaction 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container/10 text-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-xl">account_balance</span>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm text-on-surface text-sm">JazzCash Top-Up</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Today, 09:58 AM • Ref: JC-884920</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-label-lg text-label-lg text-primary font-extrabold">+Rs. 200</div>
+<div class="font-label-sm text-label-sm text-primary/70">Success</div>
+</div>
+</div>
+<!-- Transaction 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-[#E53935]/10 text-[#E53935] flex items-center justify-center">
+<span class="material-symbols-outlined text-xl">directions_bus</span>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm text-on-surface text-sm">Metrobus (Kalma Chowk → Ichhra)</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Yesterday, 04:30 PM • 3 Stops</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-label-md text-label-md text-[#8E24AA] font-bold">Rs. 0 (Pass)</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant line-through">Rs. 30</div>
+</div>
+</div>
+<!-- Transaction 3 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-[#1976D2]/10 text-[#1976D2] flex items-center justify-center">
+<span class="material-symbols-outlined text-xl">airport_shuttle</span>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm text-on-surface text-sm">Speedo Feeder SP-1</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Yesterday, 08:15 AM • Route #4</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-label-md text-label-md text-[#8E24AA] font-bold">Rs. 0 (Pass)</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant line-through">Rs. 20</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Help & Transit Authority Note -->
+<div class="flex items-center justify-between p-space-sm bg-surface-container-low rounded-lg text-on-surface-variant text-center">
+<span class="material-symbols-outlined text-base">info</span>
+<span class="font-body-sm text-body-sm flex-1 text-left px-2">Punjab Mass Transit Authority student discount valid till Dec 2025.</span>
+<a class="font-label-sm text-label-sm text-primary font-bold" href="#">Inquiries</a>
+</div>
+</div>
+</div>
+<script>
+  (function initTransitPassTimer() {
+    let timeLeft = 24;
+    const totalCycle = 30;
+    const ringPerimeter = 691;
+    const ringEl = document.getElementById('qr-progress-ring');
+    const labelEl = document.getElementById('countdown-text');
+    const refreshBtn = document.getElementById('refresh-qr-btn');
+    const refreshIcon = document.getElementById('refresh-icon');
+
+    function updateRing() {
+      if (!ringEl || !labelEl) return;
+      const offset = ringPerimeter - (timeLeft / totalCycle) * ringPerimeter;
+      ringEl.style.strokeDashoffset = offset;
+      labelEl.textContent = `Refreshes in ${timeLeft}s`;
+    }
+
+    const timer = setInterval(() => {
+      timeLeft--;
+      if (timeLeft <= 0) {
+        timeLeft = 30;
+      }
+      updateRing();
+    }, 1000);
+
+    if (refreshBtn) {
+      refreshBtn.addEventListener('click', () => {
+        timeLeft = 30;
+        if (refreshIcon) {
+          refreshIcon.classList.add('rotate-180');
+          setTimeout(() => refreshIcon.classList.remove('rotate-180'), 400);
+        }
+        updateRing();
+      });
+    }
+
+    updateRing();
+  })();
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/85 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.05)]" data-active-classes="text-primary-container font-label-md"><div class="flex justify-around items-center h-16 px-space-sm"><a class="flex-1 flex flex-col items-center justify-center py-space-xs min-h-[44px] text-on-surface-variant hover:text-primary-container transition-colors" data-path="radar" href="#"><span class="material-symbols-outlined text-2xl">radar</span><span class="font-label-sm text-label-sm mt-0.5">Radar</span></a><a class="flex-1 flex flex-col items-center justify-center py-space-xs min-h-[44px] text-on-surface-variant hover:text-primary-container transition-colors" data-path="plan" href="#"><span class="material-symbols-outlined text-2xl">route</span><span class="font-label-sm text-label-sm mt-0.5">Plan</span></a><a aria-current="page" class="flex-1 flex flex-col items-center justify-center py-space-xs min-h-[44px] transition-colors text-primary-container font-label-md" data-path="pass" href="#"><span class="material-symbols-outlined text-2xl">qr_code_2</span><span class="font-label-sm text-label-sm mt-0.5">Pass</span></a><a class="flex-1 flex flex-col items-center justify-center py-space-xs min-h-[44px] text-on-surface-variant hover:text-primary-container transition-colors" data-path="profile" href="#"><span class="material-symbols-outlined text-2xl">account_circle</span><span class="font-label-sm text-label-sm mt-0.5">Profile</span></a></div></nav></body></html>

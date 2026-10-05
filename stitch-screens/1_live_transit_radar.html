@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface": "#f8f9ff", "surface-tint": "#266c20", "on-primary-fixed-variant": "#055307", "tertiary-fixed-dim": "#ffb786", "secondary-fixed-dim": "#a5c8ff", "on-primary-fixed": "#002201", "tertiary-container": "#b45900", "tertiary-fixed": "#ffdcc6", "surface-container-low": "#eff4ff", "secondary": "#005faf", "on-tertiary": "#ffffff", "outline": "#717a6b", "primary-container": "#3b8132", "inverse-primary": "#8ed97e", "primary": "#20671b", "on-tertiary-fixed-variant": "#723600", "outline-variant": "#c0c9b9", "on-secondary": "#ffffff", "on-background": "#0b1c30", "on-primary-container": "#eaffdf", "on-primary": "#ffffff", "on-surface-variant": "#41493d", "on-secondary-container": "#003567", "secondary-fixed": "#d4e3ff", "surface-variant": "#d3e4fe", "on-error-container": "#93000a", "primary-fixed-dim": "#8ed97e", "background": "#f8f9ff", "primary-fixed": "#a9f697", "surface-container": "#e5eeff", "secondary-container": "#54a0fe", "error-container": "#ffdad6", "on-tertiary-container": "#fff7f4", "surface-bright": "#f8f9ff", "on-error": "#ffffff", "inverse-surface": "#213145", "on-secondary-fixed": "#001c3a", "error": "#ba1a1a", "on-secondary-fixed-variant": "#004786", "surface-container-highest": "#d3e4fe", "surface-container-high": "#dce9ff", "surface-dim": "#cbdbf5", "tertiary": "#8f4600", "on-tertiary-fixed": "#311300", "inverse-on-surface": "#eaf1ff", "on-surface": "#0b1c30", "surface-container-lowest": "#ffffff" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-sm": "0.5rem", "margin": "1rem", "gutter": "0.75rem", "space-md": "0.75rem", "space-xs": "0.25rem", "space-lg": "1rem", "space-xl": "1.5rem" }, fontFamily: { "body-md": ["Plus Jakarta Sans"], "transit-countdown": ["Plus Jakarta Sans"], "label-lg": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "headline-xl": ["Plus Jakarta Sans"] }, fontSize: { "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }], "transit-countdown": ["28px", { lineHeight: "32px", letterSpacing: "-0.03em", fontWeight: "800" }], "label-lg": ["14px", { lineHeight: "18px", letterSpacing: "0.02em", fontWeight: "700" }], "label-sm": ["10px", { lineHeight: "12px", letterSpacing: "0.06em", fontWeight: "800" }], "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "600" }], "body-lg": ["16px", { lineHeight: "24px", fontWeight: "500" }], "body-sm": ["12px", { lineHeight: "16px", fontWeight: "400" }], "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.04em", fontWeight: "700" }], "headline-md": ["20px", { lineHeight: "28px", letterSpacing: "-0.01em", fontWeight: "700" }], "headline-lg": ["24px", { lineHeight: "32px", letterSpacing: "-0.015em", fontWeight: "700" }], "headline-xl": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "800" }] } } } };</script><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-body-md text-on-surface min-h-screen flex flex-col selection:bg-primary-fixed"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0 flex-1"><img alt="Chalo Transit Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1UTwveEGMrJfoVqhODVy6I_6UfucAb5aFjb8A_9COZx5DfjyuU3pb4kD6OdVG2dgnqBK4hpuPd9Fh_RguPcnf3PpS58fiu3N89M9y-wskDEbmsNcKrwvXKHvLDqeCV03TxtM8hgDi_SAKpAL4MOEcnaQA8FKihA9Fxg-2UfP_5tlIMxWDclnR1ZIdmaWFsnshvg49RBIxi028BpWxMjfpMzaevpKuNhc3RFnQgA6O7cLa26D_jCkcW4bzCq"/><span class="font-headline-md text-headline-md text-on-surface truncate">Chalo</span><span class="hidden">Radar</span></div><div class="flex items-center justify-center"><div class="inline-flex items-center gap-space-xs bg-surface-container-high px-space-md py-1 rounded-full shadow-[0_1px_4px_rgba(0,0,0,0.04)]"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-container opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-primary-container"></span></span><span class="font-label-sm text-label-sm text-primary font-bold uppercase tracking-wider">LHE LIVE</span></div></div><div class="flex items-center justify-end flex-1"><button aria-label="Account" class="w-11 h-11 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSEmcGYbzicgBEIDsHd_XAych8OSUkm5rhtIoS4iTeWfY6vxLcVyV_G06-5wTyymexwjclQnmMoONz2r9DeCPoHsiBmn5Sus9iwWZW9C2KwvOeQxagHIg_SMIe4RiHYmt2C4K5RssPkynqDeFFSWhWwtHUS8FdWF6GniMfhWx0LX98RblK7Fyhh6kt1g_s9_QOqXEYorCmwR9B1icc6vI7EePRasJufdKzTJcXQhVviAxkNqWaCThUEQ"/></button></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-24 bg-surface"><div class="flex flex-col w-full relative">
+<!-- Interactive Viewport Canvas -->
+<div class="relative w-full h-[580px] overflow-hidden bg-surface-container-low select-none">
+<!-- Stylized Lahore Transit Map Vector Canvas -->
+<div class="absolute inset-0 w-full h-full">
+<svg class="w-full h-full object-cover" fill="none" viewbox="0 0 400 580" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="40" id="city-grid" patternunits="userSpaceOnUse" width="40">
+<path d="M 40 0 L 0 0 0 40" fill="none" opacity="0.65" stroke="#d3e4fe" stroke-width="0.75"></path>
+</pattern>
+<filter height="140%" id="glow-red" width="140%" x="-20%" y="-20%">
+<fedropshadow dx="0" dy="2" flood-color="#ba1a1a" flood-opacity="0.3" stddeviation="3"></fedropshadow>
+</filter>
+<filter height="140%" id="glow-orange" width="140%" x="-20%" y="-20%">
+<fedropshadow dx="0" dy="2" flood-color="#b45900" flood-opacity="0.35" stddeviation="3"></fedropshadow>
+</filter>
+<filter height="140%" id="glow-blue" width="140%" x="-20%" y="-20%">
+<fedropshadow dx="0" dy="2" flood-color="#005faf" flood-opacity="0.35" stddeviation="3"></fedropshadow>
+</filter>
+</defs>
+<!-- Base Canvas Grid & Background -->
+<rect fill="#eff4ff" height="100%" width="100%"></rect>
+<rect fill="url(#city-grid)" height="100%" width="100%"></rect>
+<!-- Lahore Natural & Road Arteries -->
+<!-- Ravi River Boundary Curve -->
+<path d="M -20 70 Q 120 40 220 90 T 420 60" fill="none" opacity="0.45" stroke="#a5c8ff" stroke-linecap="round" stroke-width="14"></path>
+<text class="font-label-sm text-label-sm" fill="#005faf" opacity="0.6" x="70" y="62">RIVER RAVI</text>
+<!-- Lahore Ring Road Arc -->
+<path d="M 20 50 Q 320 80 370 280 T 180 560" fill="none" stroke="#dce9ff" stroke-dasharray="6 4" stroke-width="6"></path>
+<!-- Lahore Canal Road (Iconic Green Artery) -->
+<path d="M 400 130 Q 250 250 160 380 T 10 540" fill="none" opacity="0.35" stroke="#8ed97e" stroke-linecap="round" stroke-width="8"></path>
+<path d="M 400 130 Q 250 250 160 380 T 10 540" fill="none" stroke="#266c20" stroke-linecap="round" stroke-opacity="0.5" stroke-width="2.5"></path>
+<text class="font-label-sm text-label-sm" fill="#20671b" opacity="0.75" transform="rotate(-40 210 295)" x="210" y="295">CANAL ROAD</text>
+<!-- Multan Road Spine -->
+<path d="M 30 520 L 195 240" stroke="#cbdbf5" stroke-linecap="round" stroke-width="5"></path>
+<!-- Mall Road Artery -->
+<path d="M 60 170 L 330 250" stroke="#cbdbf5" stroke-linecap="round" stroke-width="4.5"></path>
+<!-- Main Boulevard Gulberg -->
+<path d="M 230 240 L 290 390" stroke="#cbdbf5" stroke-linecap="round" stroke-width="5"></path>
+<!-- SPEEDO FEEDER NETWORK (Blue Line: Gulberg - Liberty - Railway Stn) -->
+<path d="M 260 180 Q 220 220 240 280 T 285 365" fill="none" id="speedoPath" stroke="#005faf" stroke-dasharray="5 3" stroke-width="4"></path>
+<!-- Speedo Route Secondary Loop -->
+<path d="M 240 280 C 310 290 320 340 285 365" fill="none" opacity="0.5" stroke="#005faf" stroke-dasharray="4 2" stroke-width="3"></path>
+<!-- ORANGE LINE METRO TRAIN (Orange Line: Ali Town to Dera Gujran) -->
+<path d="M 40 500 L 110 400 L 185 270 L 205 180 L 340 120" fill="none" id="orangeLinePath" stroke="#b45900" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"></path>
+<!-- METROBUS BRT CORRIDOR (Red Line: Gajju Matta to Shahdara) -->
+<path d="M 205 90 L 205 210 L 235 320 L 235 550" fill="none" id="metrobusPath" stroke="#ba1a1a" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"></path>
+<!-- METROBUS STATIONS (Red Dots) -->
+<!-- Shahdara -->
+<circle cx="205" cy="90" fill="#ffffff" r="5" stroke="#ba1a1a" stroke-width="2.5"></circle>
+<text class="font-label-sm text-label-sm" fill="#0b1c30" x="216" y="94">Shahdara</text>
+<!-- MAO College -->
+<circle cx="205" cy="180" fill="#ffffff" r="4" stroke="#ba1a1a" stroke-width="2"></circle>
+<!-- Qartaba Chowk Interchange Hub -->
+<circle cx="205" cy="225" fill="#ffffff" r="6" stroke="#ba1a1a" stroke-width="3"></circle>
+<text class="font-label-sm text-label-sm text-right" fill="#0b1c30" x="130" y="228">Qartaba Chowk</text>
+<!-- Kalma Chowk Hub -->
+<circle cx="235" cy="320" fill="#ffffff" r="7" stroke="#ba1a1a" stroke-width="3.5"></circle>
+<text class="font-label-md text-label-md font-bold" fill="#0b1c30" x="160" y="324">Kalma Chowk</text>
+<!-- Ichhra -->
+<circle cx="225" cy="280" fill="#ffffff" r="4" stroke="#ba1a1a" stroke-width="2"></circle>
+<!-- Model Town -->
+<circle cx="235" cy="400" fill="#ffffff" r="4.5" stroke="#ba1a1a" stroke-width="2"></circle>
+<text class="font-label-sm text-label-sm" fill="#41493d" x="246" y="403">Model Town</text>
+<!-- Gajju Matta -->
+<circle cx="235" cy="540" fill="#ffffff" r="5" stroke="#ba1a1a" stroke-width="2.5"></circle>
+<text class="font-label-sm text-label-sm" fill="#0b1c30" x="246" y="543">Gajju Matta</text>
+<!-- ORANGE LINE STATIONS (Orange Dots) -->
+<!-- Ali Town -->
+<circle cx="40" cy="500" fill="#ffffff" r="5" stroke="#b45900" stroke-width="2.5"></circle>
+<text class="font-label-sm text-label-sm" fill="#41493d" x="50" y="504">Ali Town</text>
+<!-- Thokar Niaz Baig -->
+<circle cx="110" cy="400" fill="#ffffff" r="5" stroke="#b45900" stroke-width="2.5"></circle>
+<text class="font-label-sm text-label-sm" fill="#41493d" x="45" y="395">Thokar</text>
+<!-- Chauburji -->
+<circle cx="185" cy="270" fill="#ffffff" r="5" stroke="#b45900" stroke-width="2.5"></circle>
+<text class="font-label-sm text-label-sm" fill="#41493d" x="128" y="268">Chauburji</text>
+<!-- Anarkali Central Station -->
+<circle cx="205" cy="180" fill="#ffffff" r="7" stroke="#b45900" stroke-width="3"></circle>
+<text class="font-label-md text-label-md font-bold" fill="#0b1c30" x="218" y="176">Anarkali Hub</text>
+<!-- Dera Gujran -->
+<circle cx="340" cy="120" fill="#ffffff" r="5" stroke="#b45900" stroke-width="2.5"></circle>
+<text class="font-label-sm text-label-sm" fill="#41493d" x="282" y="112">Dera Gujran</text>
+<!-- SPEEDO STOPS -->
+<circle cx="285" cy="365" fill="#ffffff" r="4.5" stroke="#005faf" stroke-width="2.5"></circle>
+<text class="font-label-sm text-label-sm font-bold" fill="#005faf" x="296" y="370">Liberty Roundabout</text>
+<circle cx="260" cy="180" fill="#ffffff" r="4" stroke="#005faf" stroke-width="2"></circle>
+<text class="font-label-sm text-label-sm" fill="#41493d" x="268" y="184">Railway Stn</text>
+<!-- INTERPOLATED LIVE VEHICLE BADGES ON MAP -->
+<!-- 1. Metrobus Vehicle: MB-1 (Heading South) -->
+<g class="cursor-pointer" filter="url(#glow-red)" id="vehicle-mb1" transform="translate(235, 360)">
+<circle cx="0" cy="0" fill="#ba1a1a" r="16"></circle>
+<path d="M -4 -5 L 4 -5 L 0 5 Z" fill="#ffffff" transform="rotate(180)"></path>
+<rect fill="#ba1a1a" height="15" rx="4" width="36" x="-18" y="-28"></rect>
+<text class="font-label-sm text-label-sm font-bold" fill="#ffffff" text-anchor="middle" x="0" y="-18">MB-1</text>
+</g>
+<!-- 2. Orange Line Vehicle: OL-2 (Heading Chauburji) -->
+<g class="cursor-pointer" filter="url(#glow-orange)" id="vehicle-ol2" transform="translate(148, 335)">
+<circle cx="0" cy="0" fill="#b45900" r="16"></circle>
+<circle cx="0" cy="0" opacity="0.8" r="22" stroke="#b45900" stroke-dasharray="3 3" stroke-width="1.5"></circle>
+<path d="M -4 4 L 4 4 L 0 -5 Z" fill="#ffffff" transform="rotate(-35)"></path>
+<rect fill="#b45900" height="15" rx="4" width="36" x="-18" y="-30"></rect>
+<text class="font-label-sm text-label-sm font-bold" fill="#ffffff" text-anchor="middle" x="0" y="-20">OL-2</text>
+</g>
+<!-- 3. Speedo Feeder Bus: SP-104 (Selected Vehicle near Liberty) -->
+<g class="cursor-pointer" filter="url(#glow-blue)" id="vehicle-sp104" transform="translate(270, 325)">
+<circle cx="0" cy="0" fill="#d4e3ff" fill-opacity="0.4" r="24"></circle>
+<circle cx="0" cy="0" fill="#005faf" r="17"></circle>
+<!-- Animated Radar Ping -->
+<circle cx="0" cy="0" opacity="0.6" r="28" stroke="#005faf" stroke-width="2">
+<animate attributename="r" dur="2s" repeatcount="indefinite" values="18;34"></animate>
+<animate attributename="opacity" dur="2s" repeatcount="indefinite" values="0.8;0"></animate>
+</circle>
+<path d="M -4 4 L 4 4 L 0 -5 Z" fill="#ffffff" transform="rotate(145)"></path>
+<!-- Target Selection Tag -->
+<rect fill="#005faf" height="17" rx="5" width="48" x="-24" y="-34"></rect>
+<text class="font-label-sm text-label-sm font-bold" fill="#ffffff" text-anchor="middle" x="0" y="-22">SP-104</text>
+</g>
+</svg>
+</div>
+<!-- Floating Glassmorphism Top Control Bar -->
+<div class="absolute top-0 inset-x-0 p-space-md z-30 flex flex-col gap-space-sm pointer-events-none">
+<!-- Live Telemetry Radar Header Pill -->
+<div class="self-center pointer-events-auto shadow-md backdrop-blur-xl bg-surface-container-lowest/90 px-space-md py-1 rounded-full flex items-center gap-space-xs">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-container opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+<span class="font-label-sm text-label-sm text-on-surface font-bold tracking-tight">Live • 1s GPS Feed • 6 Active Fleets</span>
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">LHE Radar</span>
+</div>
+<!-- Quick Transit Search Bar -->
+<div class="w-full pointer-events-auto shadow-md rounded-xl bg-surface-container-lowest/95 backdrop-blur-lg px-space-md h-12 flex items-center justify-between gap-space-sm">
+<span class="material-symbols-outlined text-outline text-xl">search</span>
+<input class="w-full bg-transparent font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none" placeholder="Search stops, lines or landmarks (e.g. Kalma Chowk)..." type="text"/>
+<button aria-label="Voice Search" class="w-8 h-8 rounded-full flex items-center justify-center text-primary hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-xl">mic</span>
+</button>
+</div>
+<!-- Horizontal Multi-Modal Transit Filter Pills -->
+<div class="w-full pointer-events-auto flex items-center gap-space-xs overflow-x-auto pb-1 scrollbar-none">
+<!-- Filter: All Networks (Active) -->
+<button class="flex items-center gap-1.5 bg-primary text-on-primary px-space-md py-1.5 rounded-full font-label-md text-label-md whitespace-nowrap shadow-sm active:scale-95 transition-all">
+<span>All Networks</span>
+<span class="bg-primary-container text-on-primary-container px-1.5 py-0.2 rounded-full font-label-sm text-label-sm">6</span>
+</button>
+<!-- Filter: Metrobus Red -->
+<button class="flex items-center gap-1.5 bg-surface-container-lowest/95 backdrop-blur-md text-on-surface px-space-md py-1.5 rounded-full font-label-md text-label-md whitespace-nowrap shadow-sm hover:bg-surface-container transition-colors">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+<span>Metrobus</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">MB-1 • 2</span>
+</button>
+<!-- Filter: Orange Line Metro -->
+<button class="flex items-center gap-1.5 bg-surface-container-lowest/95 backdrop-blur-md text-on-surface px-space-md py-1.5 rounded-full font-label-md text-label-md whitespace-nowrap shadow-sm hover:bg-surface-container transition-colors">
+<span class="w-2 h-2 rounded-full bg-tertiary-container"></span>
+<span>Orange Line</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">OL-2 • 2</span>
+</button>
+<!-- Filter: Speedo Feeder -->
+<button class="flex items-center gap-1.5 bg-surface-container-lowest/95 backdrop-blur-md text-on-surface px-space-md py-1.5 rounded-full font-label-md text-label-md whitespace-nowrap shadow-sm hover:bg-surface-container transition-colors">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span>Speedo</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">SP1 • 2</span>
+</button>
+</div>
+</div>
+<!-- Floating Map Utility Action Controls (Right Rail) -->
+<div class="absolute right-margin bottom-4 z-20 flex flex-col gap-space-sm">
+<!-- Recenter / Compass Button -->
+<button aria-label="Re-center Map" class="w-11 h-11 rounded-full bg-surface-container-lowest shadow-md flex items-center justify-center text-primary hover:bg-surface-container transition-colors active:scale-90">
+<span class="material-symbols-outlined text-2xl">near_me</span>
+</button>
+<!-- Traffic / Transit Layer Toggle -->
+<button aria-label="Map Layers" class="w-11 h-11 rounded-full bg-surface-container-lowest shadow-md flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors active:scale-90">
+<span class="material-symbols-outlined text-2xl">layers</span>
+</button>
+<!-- Refresh telemetry -->
+<button aria-label="Refresh Feed" class="w-11 h-11 rounded-full bg-surface-container-lowest shadow-md flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors active:scale-90">
+<span class="material-symbols-outlined text-2xl">sync</span>
+</button>
+</div>
+</div>
+<!-- Bottom Sheet / Vehicle Live Radar Inspection Card -->
+<div class="w-full bg-surface-container-lowest rounded-t-xl shadow-xl px-margin pt-space-md pb-space-lg flex flex-col gap-space-md z-30">
+<!-- Drag Affordance Pill -->
+<div class="w-10 h-1 bg-surface-variant rounded-full self-center"></div>
+<!-- Selected Vehicle Identification Bar -->
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-11 h-11 rounded-xl bg-secondary flex items-center justify-center text-on-secondary shadow-sm">
+<span class="material-symbols-outlined text-2xl">directions_bus</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="bg-secondary text-on-secondary px-2 py-0.5 rounded font-label-md text-label-md">SP-104</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Feeder Route 1</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Railway Station ⇄ Gulberg Central</span>
+</div>
+</div>
+<!-- Live Speed & Telemetry Status -->
+<div class="flex flex-col items-end">
+<div class="flex items-center gap-1 text-primary font-label-md text-label-md">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-container opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary-container"></span>
+</span>
+<span>On Time</span>
+</div>
+<span class="font-body-sm text-body-sm text-outline">28 km/h • GPS Live</span>
+</div>
+</div>
+<!-- Next Stop Live Announcement Box -->
+<div class="bg-surface-container-low rounded-xl p-space-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-lg">alt_route</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-bold">Approaching Stop</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">450m away</span>
+</div>
+<div class="flex items-baseline justify-between">
+<span class="font-headline-md text-headline-md text-on-surface">Liberty Market Roundabout</span>
+<div class="flex items-baseline gap-1">
+<span class="font-transit-countdown text-transit-countdown text-primary-container">3</span>
+<span class="font-label-sm text-label-sm text-primary font-bold">MINS</span>
+</div>
+</div>
+<!-- Route Progress Gauge (68% complete) -->
+<div class="flex flex-col gap-1 mt-1">
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 68%;"></div>
+</div>
+<div class="flex justify-between font-label-sm text-label-sm text-outline">
+<span>Stn: Railway Lahore</span>
+<span class="font-bold text-on-surface-variant">68% of itinerary</span>
+<span>End: Gulberg Main</span>
+</div>
+</div>
+</div>
+<!-- Passenger Load & Fare Structure Grid -->
+<div class="grid grid-cols-2 gap-space-sm">
+<!-- Occupancy Status -->
+<div class="bg-surface-container rounded-xl p-space-sm flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container-highest flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined text-xl">group</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Crowd Status</span>
+<span class="font-label-md text-label-md text-on-surface">Moderate (2/3 Seats)</span>
+</div>
+</div>
+<!-- Fare Policy Card (Zero-Fare Highlight) -->
+<div class="bg-surface-container rounded-xl p-space-sm flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-secondary-fixed flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-xl">payments</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Feeder Bus Fare</span>
+<div class="flex items-center gap-1 truncate">
+<span class="font-label-md text-label-md text-on-surface">Rs. 20</span>
+<span class="font-label-sm text-label-sm text-primary-container font-bold">• Free/Student</span>
+</div>
+</div>
+</div>
+</div>
+<!-- User Action CTA Pair -->
+<div class="grid grid-cols-2 gap-space-sm mt-1">
+<button class="h-12 bg-primary text-on-primary rounded-xl font-label-lg text-label-lg flex items-center justify-center gap-space-xs shadow-md active:scale-95 transition-all">
+<span class="material-symbols-outlined text-xl">navigation</span>
+<span>Track Live</span>
+</button>
+<button class="h-12 bg-surface-container text-on-surface rounded-xl font-label-lg text-label-lg flex items-center justify-center gap-space-xs hover:bg-surface-container-high active:scale-95 transition-all">
+<span class="material-symbols-outlined text-xl">notification_add</span>
+<span>Set Stop Alert</span>
+</button>
+</div>
+</div>
+</div></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/85 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.05)]" data-active-classes="text-primary-container font-label-md"><div class="flex justify-around items-center h-16 px-space-sm"><a aria-current="page" class="flex-1 flex flex-col items-center justify-center py-space-xs min-h-[44px] transition-colors text-primary-container font-label-md" data-path="radar" href="#"><span class="material-symbols-outlined text-2xl">radar</span><span class="font-label-sm text-label-sm mt-0.5">Radar</span></a><a class="flex-1 flex flex-col items-center justify-center py-space-xs min-h-[44px] text-on-surface-variant hover:text-primary-container transition-colors" data-path="plan" href="#"><span class="material-symbols-outlined text-2xl">route</span><span class="font-label-sm text-label-sm mt-0.5">Plan</span></a><a class="flex-1 flex flex-col items-center justify-center py-space-xs min-h-[44px] text-on-surface-variant hover:text-primary-container transition-colors" data-path="pass" href="#"><span class="material-symbols-outlined text-2xl">qr_code_2</span><span class="font-label-sm text-label-sm mt-0.5">Pass</span></a><a class="flex-1 flex flex-col items-center justify-center py-space-xs min-h-[44px] text-on-surface-variant hover:text-primary-container transition-colors" data-path="profile" href="#"><span class="material-symbols-outlined text-2xl">account_circle</span><span class="font-label-sm text-label-sm mt-0.5">Profile</span></a></div></nav></body></html>

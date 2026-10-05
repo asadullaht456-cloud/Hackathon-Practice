@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
+import { StyleSheet, View, ScrollView, Image } from 'react-native';
 import { Text, Switch, Button, Icon, Divider, List } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
@@ -63,86 +63,151 @@ export default function ProfileScreen() {
         Account & Settings
       </Text>
 
-      {/* User Info Card */}
-      <AppCard variant="elevated" elevation={2} style={{ marginBottom: spacing.five }}>
+      {/* User Info Card (Stitch UI) */}
+      <AppCard variant="elevated" elevation={2} style={{ marginBottom: spacing.four }}>
         <View style={styles.userHeaderRow}>
-          <View
-            style={[
-              styles.avatar,
-              {
-                backgroundColor: isStudent ? colors.network.student : colors.primary,
-                borderColor: isGlare ? colors.border : 'transparent',
-                borderWidth: isGlare ? 2 : 0,
-                borderRadius: borderRadius.full,
-              },
-            ]}
-          >
-            <Icon source="account" size={36} color="#ffffff" />
+          <View style={styles.avatarWrapper}>
+            <Image
+              source={require('../../../assets/images/ayesha-avatar.png')}
+              style={[
+                styles.avatarImage,
+                {
+                  borderColor: isGlare ? colors.border : colors.borderStrong,
+                  borderWidth: isGlare ? 2.5 : 1.5,
+                  borderRadius: borderRadius.full,
+                },
+              ]}
+              defaultSource={require('../../../assets/images/ayesha-avatar.png')}
+            />
+            <View
+              style={[
+                styles.verifiedCheckBadge,
+                {
+                  backgroundColor: colors.primary,
+                  borderColor: colors.card,
+                  borderRadius: borderRadius.full,
+                },
+              ]}
+            >
+              <Icon source="check" size={12} color="#ffffff" />
+            </View>
           </View>
 
           <View style={{ marginLeft: spacing.three, flex: 1 }}>
-            <Text
-              variant="titleLarge"
-              style={{
-                color: colors.text,
-                fontWeight: isGlare ? '800' : '700',
-              }}
-            >
-              {profile?.full_name || 'Passenger'}
-            </Text>
-            <View style={styles.badgeRow}>
+            <View style={styles.nameStatusRow}>
+              <Text
+                variant="titleLarge"
+                style={{
+                  color: colors.text,
+                  fontWeight: isGlare ? '900' : '800',
+                }}
+              >
+                {profile?.full_name || 'Ayesha Khan'}
+              </Text>
               <View
                 style={[
-                  styles.roleTag,
+                  styles.activePill,
                   {
-                    backgroundColor: isStudent
-                      ? colors.network.student
-                      : colors.primaryContainer,
-                    borderRadius: borderRadius.sm,
-                    borderColor: isGlare ? colors.border : 'transparent',
-                    borderWidth: isGlare ? 1.5 : 0,
-                    paddingHorizontal: spacing.two,
-                    paddingVertical: spacing.half,
+                    backgroundColor: colors.surfaceVariant,
+                    borderColor: isGlare ? colors.border : colors.borderStrong,
+                    borderWidth: 1,
+                    borderRadius: borderRadius.full,
                   },
                 ]}
               >
                 <Text
                   variant="labelSmall"
                   style={{
-                    color: isStudent ? '#ffffff' : colors.onPrimaryContainer,
-                    fontWeight: '700',
+                    color: colors.primary,
+                    fontWeight: '800',
+                    fontSize: 10,
                   }}
                 >
-                  {isStudent ? 'VERIFIED STUDENT (FREE)' : 'STANDARD CITIZEN'}
+                  ACTIVE
                 </Text>
               </View>
             </View>
+
+            <Text variant="bodySmall" style={{ color: colors.textSecondary, marginTop: 2 }}>
+              ayesha.khan@pu.edu.pk
+            </Text>
+            <Text variant="bodySmall" style={{ color: colors.textMuted, marginTop: 1 }}>
+              +92 300 1234567
+            </Text>
           </View>
         </View>
 
-        {isStudent && profile?.institution && (
-          <View
-            style={[
-              styles.studentInfoBox,
-              {
-                backgroundColor: colors.surfaceVariant,
-                borderRadius: borderRadius.md,
-                marginTop: spacing.three,
-                padding: spacing.three,
-              },
-            ]}
-          >
-            <Text variant="labelSmall" style={{ color: colors.textSecondary }}>
-              Registered Institution
-            </Text>
+        {/* Royal Purple Student Pass Banner (Stitch UI) */}
+        <View
+          style={[
+            styles.studentBanner,
+            {
+              backgroundColor: isGlare ? '#000000' : colors.network.student,
+              borderRadius: borderRadius.md,
+              marginTop: spacing.three,
+              padding: spacing.two,
+            },
+          ]}
+        >
+          <View style={styles.bannerLeft}>
+            <Text style={{ fontSize: 14, marginRight: 6 }}>🎓</Text>
             <Text
-              variant="bodyMedium"
-              style={{ color: colors.text, fontWeight: isGlare ? '700' : '600' }}
+              variant="labelMedium"
+              style={{
+                color: '#ffffff',
+                fontWeight: '800',
+                letterSpacing: 0.5,
+                textTransform: 'uppercase',
+                flex: 1,
+              }}
             >
-              {profile.institution}
+              {isStudent
+                ? 'VERIFIED STUDENT • ZERO FARE ELIGIBLE'
+                : 'COMMUTER PASS • FARE DISCOUNTS ELIGIBLE'}
             </Text>
           </View>
-        )}
+          <View
+            style={[
+              styles.pmaTag,
+              { backgroundColor: 'rgba(255,255,255,0.2)', borderRadius: borderRadius.full },
+            ]}
+          >
+            <Text
+              variant="labelSmall"
+              style={{ color: '#ffffff', fontWeight: '800', fontSize: 10 }}
+            >
+              PMA AUTH
+            </Text>
+          </View>
+        </View>
+
+        {/* University Credentials Metadata */}
+        <View
+          style={[
+            styles.studentInfoBox,
+            {
+              backgroundColor: colors.surfaceVariant,
+              borderRadius: borderRadius.md,
+              marginTop: spacing.two,
+              padding: spacing.two,
+            },
+          ]}
+        >
+          <View style={styles.eduRow}>
+            <Icon source="school" size={20} color={colors.primary} />
+            <View style={{ marginLeft: spacing.two, flex: 1 }}>
+              <Text
+                variant="bodyMedium"
+                style={{ color: colors.text, fontWeight: isGlare ? '800' : '700' }}
+              >
+                {profile?.institution || 'University of the Punjab'}
+              </Text>
+              <Text variant="labelSmall" style={{ color: colors.textSecondary, marginTop: 1 }}>
+                Roll # 2024-CS-41 • Valid thru Dec 2027
+              </Text>
+            </View>
+          </View>
+        </View>
       </AppCard>
 
       {/* Outdoor Glare Mode Settings */}
@@ -279,21 +344,54 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  avatar: {
-    width: 60,
-    height: 60,
-    justifyContent: 'center',
+  avatarWrapper: {
+    position: 'relative',
+    width: 64,
+    height: 64,
+  },
+  avatarImage: {
+    width: 64,
+    height: 64,
+  },
+  verifiedCheckBadge: {
+    position: 'absolute',
+    bottom: -2,
+    right: -2,
+    width: 20,
+    height: 20,
+    borderWidth: 2,
     alignItems: 'center',
+    justifyContent: 'center',
   },
-  badgeRow: {
-    marginTop: 6,
+  nameStatusRow: {
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
-  roleTag: {
-    alignSelf: 'flex-start',
+  activePill: {
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+  },
+  studentBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  bannerLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+  },
+  pmaTag: {
+    paddingHorizontal: 8,
+    paddingVertical: 3,
   },
   studentInfoBox: {
-    marginTop: 10,
+    marginTop: 8,
+  },
+  eduRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   settingRow: {
     flexDirection: 'row',
